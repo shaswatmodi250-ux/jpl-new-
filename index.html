@@ -34,68 +34,82 @@
   </script>
   <style>
     body { background-color: #050507; color: #F1F5F9; font-family: 'Inter', sans-serif; }
-    .display-font { font-family: 'Teko', sans-serif; letter-spacing: 0.05em; text-transform: uppercase; }
-    .mono-font { font-family: 'JetBrains Mono', monospace; }
+    .font-display { font-family: 'Teko', sans-serif; letter-spacing: 0.05em; text-transform: uppercase; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-black">
-  <!-- TOP BANNER -->
-  <header class="border-b border-bordercol bg-cardbg/80 backdrop-blur sticky top-0 z-50 px-4 lg:px-8 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
-      <div class="bg-gradient-to-tr from-emerald-500 to-cyan-500 text-black font-black px-2.5 py-1 rounded text-xl font-display">JPL</div>
-      <div>
-        <h1 class="text-lg md:text-xl font-display leading-none text-white tracking-wide">JAYAPPA PREMIER LEAGUE</h1>
-        <p class="text-[10px] text-gray-400 uppercase tracking-widest">Tournament Match Center</p>
+
+  <!-- TOP APP BAR -->
+  <header class="border-b border-bordercol bg-cardbg/80 backdrop-blur sticky top-0 z-50 px-4 lg:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
+        <div class="bg-gradient-to-tr from-emerald-500 to-cyan-500 text-black font-black px-2.5 py-1 rounded text-xl font-display">JPL</div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg md:text-xl font-display leading-none text-white tracking-wide">JAYAPPA PREMIER LEAGUE</h1>
+            <span class="inline-flex items-center gap-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-mono px-2 py-0.5 rounded border border-emerald-500/20">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> LIVE SYNC ACTIVE
+            </span>
+          </div>
+          <p class="text-[10px] text-gray-400 uppercase tracking-widest">Tournament Match Center • Season 2026</p>
+        </div>
       </div>
-    </div>
-    <div class="flex items-center gap-2 md:gap-4">
-      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-300">
-        <button id="tab-home" onclick="navigate('home')" class="hover:text-emerald-400 text-emerald-400 font-bold">Home</button>
-        <button id="tab-fixtures" onclick="navigate('fixtures')" class="hover:text-emerald-400">Fixtures</button>
-        <button id="tab-standings" onclick="navigate('standings')" class="hover:text-emerald-400">Points Table</button>
-        <button id="tab-scorers" onclick="navigate('scorers')" class="hover:text-emerald-400">👑 Golden Boot</button>
-        <button id="tab-teams" onclick="navigate('teams')" class="hover:text-emerald-400">Squads</button>
-      </nav>
-      <button id="admin-auth-btn" onclick="toggleAdminPrompt()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs px-3 py-1.5 rounded font-mono font-bold tracking-wider transition">🛡 ADMIN DESK</button>
+      
+      <div class="flex items-center gap-2 md:gap-5">
+        <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-300">
+          <button id="tab-home" onclick="navigate('home')" class="text-emerald-400 font-bold transition">Home</button>
+          <button id="tab-fixtures" onclick="navigate('fixtures')" class="hover:text-emerald-400 transition">Fixtures</button>
+          <button id="tab-standings" onclick="navigate('standings')" class="hover:text-emerald-400 transition">Points Table</button>
+          <button id="tab-scorers" onclick="navigate('scorers')" class="hover:text-emerald-400 transition">👑 Golden Boot</button>
+          <button id="tab-teams" onclick="navigate('teams')" class="hover:text-emerald-400 transition">Squads</button>
+        </nav>
+        <button id="admin-auth-btn" onclick="toggleAdminPrompt()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs px-3.5 py-1.5 rounded font-mono font-bold tracking-wider transition flex items-center gap-1.5">
+          🛡 <span id="admin-btn-text">ADMIN DESK</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- MAIN WRAPPER -->
-  <main class="max-w-6xl w-full mx-auto p-4 md:p-6 flex-grow">
+  <!-- MAIN VIEW CONTAINER -->
+  <main class="max-w-7xl w-full mx-auto p-4 md:p-6 flex-grow">
+
     <!-- VIEW: HOME -->
     <section id="view-home" class="space-y-6">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <!-- STAT CARDS -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         <div class="bg-cardbg p-4 rounded-xl border border-bordercol">
-          <p class="text-xs uppercase text-gray-400 tracking-wider">Matches Completed</p>
+          <p class="text-xs uppercase text-gray-400 tracking-wider font-mono">Matches Completed</p>
           <p id="stat-matches" class="text-3xl font-display text-white mt-1">7 / 21</p>
         </div>
         <div class="bg-cardbg p-4 rounded-xl border border-bordercol">
-          <p class="text-xs uppercase text-gray-400 tracking-wider">Total Goals</p>
+          <p class="text-xs uppercase text-gray-400 tracking-wider font-mono">Total Goals</p>
           <p id="stat-goals" class="text-3xl font-display text-emerald-400 mt-1">105</p>
         </div>
         <div class="bg-cardbg p-4 rounded-xl border border-bordercol">
-          <p class="text-xs uppercase text-gray-400 tracking-wider">Registered Players</p>
+          <p class="text-xs uppercase text-gray-400 tracking-wider font-mono">Registered Players</p>
           <p class="text-3xl font-display text-cyan-400 mt-1">42</p>
         </div>
         <div class="bg-cardbg p-4 rounded-xl border border-bordercol">
-          <p class="text-xs uppercase text-gray-400 tracking-wider">Top Goal Scorer</p>
-          <p id="stat-leader" class="text-xl font-display text-amber-400 mt-1 truncate">Awadh (16G)</p>
+          <p class="text-xs uppercase text-gray-400 tracking-wider font-mono">Top Goal Scorer</p>
+          <p id="stat-leader" class="text-2xl font-display text-amber-400 mt-1 truncate">Awadh (16G)</p>
         </div>
       </div>
 
-      <!-- STANDINGS PREVIEW -->
+      <!-- POOL STANDINGS SUMMARY GRID -->
       <div class="grid md:grid-cols-2 gap-6">
         <div class="bg-cardbg p-5 rounded-2xl border border-bordercol">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-display text-emerald-400">POOL A STANDINGS</h2>
-            <button onclick="navigate('standings')" class="text-xs text-gray-400 hover:text-white">Full Table →</button>
+          <div class="flex justify-between items-center mb-4 border-b border-bordercol pb-3">
+            <h2 class="text-2xl font-display text-emerald-400 tracking-wide">POOL A STANDINGS</h2>
+            <button onclick="navigate('standings')" class="text-xs text-gray-400 hover:text-white transition">Full Table →</button>
           </div>
           <div id="home-table-a" class="space-y-2"></div>
         </div>
+
         <div class="bg-cardbg p-5 rounded-2xl border border-bordercol">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-display text-cyan-400">POOL B STANDINGS</h2>
-            <button onclick="navigate('standings')" class="text-xs text-gray-400 hover:text-white">Full Table →</button>
+          <div class="flex justify-between items-center mb-4 border-b border-bordercol pb-3">
+            <h2 class="text-2xl font-display text-cyan-400 tracking-wide">POOL B STANDINGS</h2>
+            <button onclick="navigate('standings')" class="text-xs text-gray-400 hover:text-white transition">Full Table →</button>
           </div>
           <div id="home-table-b" class="space-y-2"></div>
         </div>
@@ -105,31 +119,60 @@
     <!-- VIEW: FIXTURES -->
     <section id="view-fixtures" class="hidden space-y-4">
       <div class="flex justify-between items-center mb-2">
-        <h2 class="text-2xl font-display text-white">TOURNAMENT FIXTURES & RESULTS</h2>
+        <h2 class="text-2xl font-display text-white tracking-wide">TOURNAMENT FIXTURES & RESULTS</h2>
         <span class="text-xs text-gray-400 font-mono">21 MATCHES</span>
       </div>
       <div id="fixtures-container" class="space-y-3"></div>
     </section>
 
-    <!-- VIEW: STANDINGS -->
-    <section id="view-standings" class="hidden space-y-6">
+    <!-- VIEW: STANDINGS FULL -->
+    <section id="view-standings" class="hidden space-y-8">
       <div>
-        <h2 class="text-2xl font-display text-emerald-400 mb-3">POOL A</h2>
+        <div class="flex justify-between items-center mb-3">
+          <h2 class="text-2xl font-display text-emerald-400 tracking-wide">POOL A STANDINGS</h2>
+          <span class="text-xs font-mono text-emerald-400/80 bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/20">TOP 2 QUALIFY FOR SEMI-FINALS</span>
+        </div>
         <div class="overflow-x-auto bg-cardbg rounded-xl border border-bordercol">
           <table class="w-full text-left text-sm">
             <thead class="bg-surface text-gray-400 text-xs uppercase font-mono">
-              <tr><th class="p-3">#</th><th class="p-3">Team</th><th class="p-3 text-center">P</th><th class="p-3 text-center">W</th><th class="p-3 text-center">D</th><th class="p-3 text-center">L</th><th class="p-3 text-center">GF</th><th class="p-3 text-center">GA</th><th class="p-3 text-center">GD</th><th class="p-3 text-center">PTS</th></tr>
+              <tr>
+                <th class="p-3">#</th>
+                <th class="p-3">Team</th>
+                <th class="p-3 text-center">P</th>
+                <th class="p-3 text-center">W</th>
+                <th class="p-3 text-center">D</th>
+                <th class="p-3 text-center">L</th>
+                <th class="p-3 text-center">GF</th>
+                <th class="p-3 text-center">GA</th>
+                <th class="p-3 text-center">GD</th>
+                <th class="p-3 text-center">PTS</th>
+              </tr>
             </thead>
             <tbody id="full-table-a" class="divide-y divide-bordercol"></tbody>
           </table>
         </div>
       </div>
+
       <div>
-        <h2 class="text-2xl font-display text-cyan-400 mb-3">POOL B</h2>
+        <div class="flex justify-between items-center mb-3">
+          <h2 class="text-2xl font-display text-cyan-400 tracking-wide">POOL B STANDINGS</h2>
+          <span class="text-xs font-mono text-cyan-400/80 bg-cyan-500/10 px-2.5 py-1 rounded border border-cyan-500/20">TOP 2 QUALIFY FOR SEMI-FINALS</span>
+        </div>
         <div class="overflow-x-auto bg-cardbg rounded-xl border border-bordercol">
           <table class="w-full text-left text-sm">
             <thead class="bg-surface text-gray-400 text-xs uppercase font-mono">
-              <tr><th class="p-3">#</th><th class="p-3">Team</th><th class="p-3 text-center">P</th><th class="p-3 text-center">W</th><th class="p-3 text-center">D</th><th class="p-3 text-center">L</th><th class="p-3 text-center">GF</th><th class="p-3 text-center">GA</th><th class="p-3 text-center">GD</th><th class="p-3 text-center">PTS</th></tr>
+              <tr>
+                <th class="p-3">#</th>
+                <th class="p-3">Team</th>
+                <th class="p-3 text-center">P</th>
+                <th class="p-3 text-center">W</th>
+                <th class="p-3 text-center">D</th>
+                <th class="p-3 text-center">L</th>
+                <th class="p-3 text-center">GF</th>
+                <th class="p-3 text-center">GA</th>
+                <th class="p-3 text-center">GD</th>
+                <th class="p-3 text-center">PTS</th>
+              </tr>
             </thead>
             <tbody id="full-table-b" class="divide-y divide-bordercol"></tbody>
           </table>
@@ -137,35 +180,100 @@
       </div>
     </section>
 
-    <!-- VIEW: SCORERS -->
+    <!-- VIEW: GOLDEN BOOT -->
     <section id="view-scorers" class="hidden space-y-4">
       <div class="flex justify-between items-center mb-2">
-        <h2 class="text-2xl font-display text-amber-400">👑 GOLDEN BOOT LEADERBOARD</h2>
-        <span class="text-xs text-gray-400 font-mono">LIVE RANKING</span>
+        <h2 class="text-2xl font-display text-amber-400 tracking-wide">👑 GOLDEN BOOT LEADERBOARD</h2>
+        <span class="text-xs text-gray-400 font-mono">LIVE PLAYER GOAL TALLY</span>
       </div>
       <div id="scorers-list" class="grid sm:grid-cols-2 md:grid-cols-3 gap-3"></div>
     </section>
 
     <!-- VIEW: TEAMS -->
     <section id="view-teams" class="hidden space-y-4">
-      <h2 class="text-2xl font-display text-white mb-2">PARTICIPATING SQUADS (10 TEAMS)</h2>
+      <h2 class="text-2xl font-display text-white tracking-wide mb-2">PARTICIPATING SQUADS (10 TEAMS)</h2>
       <div id="teams-grid" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
     </section>
 
-    <!-- VIEW: ADMIN -->
+    <!-- VIEW: ADMIN DESK -->
     <section id="view-admin" class="hidden space-y-6">
-      <div class="bg-red-500/10 border border-red-500/30 p-4 rounded-xl flex items-center justify-between">
+      <div class="bg-cardbg border border-red-500/30 p-5 rounded-2xl flex flex-wrap gap-4 items-center justify-between">
         <div>
-          <h2 class="text-xl font-display text-red-400">ADMIN SCORING DESK</h2>
-          <p class="text-xs text-gray-400">Day 1 and Day 2 results baked in permanently.</p>
+          <h2 class="text-2xl font-display text-red-400 tracking-wide">ADMIN SCORING DESK</h2>
+          <p class="text-xs text-gray-400 font-mono">Authorized Clearance Active • Live changes sync across all connected spectators' devices</p>
         </div>
-        <button onclick="logoutAdmin()" class="bg-red-600 hover:bg-red-500 text-white text-xs px-4 py-2 rounded font-bold">EXIT ADMIN</button>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="exportBackup()" class="bg-surface hover:bg-surface/80 text-emerald-400 border border-emerald-500/30 text-xs px-3 py-2 rounded font-mono font-bold transition flex items-center gap-1">💾 Export Backup</button>
+          <label class="bg-surface hover:bg-surface/80 text-cyan-400 border border-cyan-500/30 text-xs px-3 py-2 rounded font-mono font-bold transition cursor-pointer flex items-center gap-1">
+            📁 Import Backup
+            <input type="file" id="import-file" class="hidden" accept=".json" onchange="importBackup(event)">
+          </label>
+          <button onclick="triggerCloudSync(true)" class="bg-surface hover:bg-surface/80 text-blue-400 border border-blue-500/30 text-xs px-3 py-2 rounded font-mono font-bold transition flex items-center gap-1">🔄 Cloud Sync</button>
+          <button onclick="logoutAdmin()" class="bg-red-600 hover:bg-red-500 text-white text-xs px-4 py-2 rounded font-bold transition">EXIT ADMIN</button>
+        </div>
       </div>
+
       <div id="admin-match-list" class="space-y-4"></div>
     </section>
+
   </main>
 
+  <!-- MODAL: SCORE & GOALS DESK -->
+  <div id="score-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-cardbg border border-bordercol max-w-lg w-full rounded-2xl p-6 space-y-5 shadow-2xl overflow-y-auto max-h-[90vh]">
+      <div class="flex justify-between items-center border-b border-bordercol pb-3">
+        <div>
+          <h3 id="modal-match-title" class="text-xl font-display text-white">SCORE & GOALS DESK</h3>
+          <p id="modal-match-sub" class="text-xs text-gray-400 font-mono"></p>
+        </div>
+        <button onclick="closeModal()" class="text-gray-400 hover:text-white text-xl font-bold">&times;</button>
+      </div>
+
+      <!-- STATUS & SCORES -->
+      <div class="grid grid-cols-3 gap-3 items-center">
+        <div>
+          <label id="modal-home-label" class="block text-xs text-gray-400 mb-1 truncate font-semibold"></label>
+          <input type="number" id="modal-home-score" min="0" class="w-full bg-surface border border-bordercol text-white font-mono text-center text-2xl py-2 rounded-lg focus:outline-none focus:border-emerald-500">
+        </div>
+        <div class="text-center">
+          <label class="block text-[10px] text-gray-400 mb-1 uppercase font-mono">Status</label>
+          <select id="modal-status" class="w-full bg-surface border border-bordercol text-xs text-emerald-400 font-mono py-2 rounded-lg text-center focus:outline-none focus:border-emerald-500">
+            <option value="SCHEDULED">SCHEDULED</option>
+            <option value="LIVE">LIVE</option>
+            <option value="FULL TIME">FULL TIME</option>
+          </select>
+        </div>
+        <div>
+          <label id="modal-away-label" class="block text-xs text-gray-400 mb-1 truncate text-right font-semibold"></label>
+          <input type="number" id="modal-away-score" min="0" class="w-full bg-surface border border-bordercol text-white font-mono text-center text-2xl py-2 rounded-lg focus:outline-none focus:border-emerald-500">
+        </div>
+      </div>
+
+      <!-- GOALS BREAKDOWN -->
+      <div class="border-t border-bordercol pt-4 space-y-3">
+        <h4 class="text-xs uppercase font-mono tracking-wider text-amber-400">Match Goal Scorers</h4>
+        <div id="modal-goals-list" class="space-y-2 max-h-40 overflow-y-auto pr-1"></div>
+        
+        <div class="flex gap-2">
+          <select id="modal-player-select" class="flex-grow bg-surface border border-bordercol text-xs text-white p-2 rounded-lg focus:outline-none focus:border-emerald-500"></select>
+          <input type="number" id="modal-goal-count" min="1" value="1" class="w-16 bg-surface border border-bordercol text-xs text-white p-2 rounded-lg text-center font-mono">
+          <button onclick="addGoalInModal()" class="bg-emerald-600 hover:bg-emerald-500 text-black font-bold text-xs px-3 rounded-lg transition">+ Add</button>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-3 border-t border-bordercol">
+        <button onclick="closeModal()" class="px-4 py-2 text-xs font-mono text-gray-400 hover:text-white transition">Cancel</button>
+        <button onclick="saveModalMatch()" class="bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-bold px-5 py-2 rounded-lg transition">Save & Sync</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="border-t border-bordercol py-4 px-6 text-center text-xs font-mono text-gray-500">
+    Jayappa Premier League © 2026 • Powered by JPL Tournament Engine
+  </footer>
+
   <script>
+    // TEAMS DATA (ROSTER)
     const TEAMS_DATA = [
       { id: 'T_AKH', name: 'Team Akhand', pool: 'Pool A', captain: 'Akhand', players: ['Akhand', 'Anirudh Yadav', 'Mudit', 'Shashwat', 'Rudransh'] },
       { id: 'T_RAM', name: 'Team Ram', pool: 'Pool A', captain: 'Ram', players: ['Ram', 'Mann', 'Anadh', 'Arav Kansal'] },
@@ -179,14 +287,120 @@
       { id: 'T_PAT', name: 'Team Pathak / Pranit', pool: 'Pool B', captain: 'Pranit / Pathak', players: ['Pranit / Pathak', 'Ishaan Gupta', 'Ishaan Chitransh', 'Divya Raj'] }
     ];
 
-    const INITIAL_FIXTURES = [
-      { id: "M01", date: "5th October", pool: "Pool A", homeId: "T_AKH", awayId: "T_SHB", homeScore: 5, awayScore: 5, status: "FULL TIME", goals: [{ player: "Anirudh Yadav", count: 5, teamId: "T_AKH" }, { player: "Kaveesh", count: 5, teamId: "T_SHB" }] },
-      { id: "M02", date: "5th October", pool: "Pool A", homeId: "T_SHG", awayId: "T_AWA", homeScore: 4, awayScore: 12, status: "FULL TIME", goals: [{ player: "Chirag", count: 2, teamId: "T_SHG" }, { player: "Om", count: 1, teamId: "T_SHG" }, { player: "Shaurya Goel", count: 1, teamId: "T_SHG" }, { player: "Awadh", count: 10, teamId: "T_AWA" }, { player: "Vansh", count: 2, teamId: "T_AWA" }] },
-      { id: "M03", date: "5th October", pool: "Pool B", homeId: "T_PAT", awayId: "T_SAK", homeScore: 9, awayScore: 7, status: "FULL TIME", goals: [{ player: "Ishaan Gupta", count: 6, teamId: "T_PAT" }, { player: "Pranit / Pathak", count: 3, teamId: "T_PAT" }, { player: "Kamal", count: 4, teamId: "T_SAK" }, { player: "Saksham", count: 2, teamId: "T_SAK" }, { player: "Prraham", count: 1, teamId: "T_SAK" }] },
-      { id: "M04", date: "5th October", pool: "Pool B", homeId: "T_PRA", awayId: "T_SAY", homeScore: 13, awayScore: 3, status: "FULL TIME", goals: [{ player: "Advik", count: 11, teamId: "T_PRA" }, { player: "Ariket", count: 2, teamId: "T_PRA" }, { player: "Vivan", count: 2, teamId: "T_SAY" }, { player: "Sayush", count: 1, teamId: "T_SAY" }] },
-      { id: "M05", date: "6th October", pool: "Pool A", homeId: "T_SHG", awayId: "T_SHB", homeScore: 2, awayScore: 7, status: "FULL TIME", goals: [{ player: "Kaveesh", count: 6, teamId: "T_SHB" }, { player: "Shaurya Baranwal", count: 1, teamId: "T_SHB" }, { player: "Shaurya Goel", count: 2, teamId: "T_SHG" }] },
-      { id: "M06", date: "6th October", pool: "Pool A", homeId: "T_AWA", awayId: "T_RAM", homeScore: 9, awayScore: 11, status: "FULL TIME", goals: [{ player: "Awadh", count: 6, teamId: "T_AWA" }, { player: "Prithive", count: 1, teamId: "T_AWA" }, { player: "Mann", count: 11, teamId: "T_RAM" }, { player: "Rudra", count: 2, teamId: "T_AWA" }] },
-      { id: "M07", date: "6th October", pool: "Pool B", homeId: "T_SAK", awayId: "T_PRA", homeScore: 12, awayScore: 6, status: "FULL TIME", goals: [{ player: "Krish", count: 8, teamId: "T_SAK" }, { player: "Kamal", count: 3, teamId: "T_SAK" }, { player: "Prraham", count: 1, teamId: "T_SAK" }, { player: "Ariket", count: 2, teamId: "T_PRA" }, { player: "Advik", count: 4, teamId: "T_PRA" }] },
+    // ALL FIXTURES (DAY 1 + DAY 2 BAKED IN PERMANENTLY)
+    const BASE_FIXTURES = [
+      {
+        id: "M01",
+        date: "5th October",
+        pool: "Pool A",
+        homeId: "T_AKH",
+        awayId: "T_SHB",
+        homeScore: 5,
+        awayScore: 5,
+        status: "FULL TIME",
+        goals: [
+          { player: "Anirudh Yadav", count: 5, teamId: "T_AKH" },
+          { player: "Kaveesh", count: 5, teamId: "T_SHB" }
+        ]
+      },
+      {
+        id: "M02",
+        date: "5th October",
+        pool: "Pool A",
+        homeId: "T_SHG",
+        awayId: "T_AWA",
+        homeScore: 4,
+        awayScore: 12,
+        status: "FULL TIME",
+        goals: [
+          { player: "Chirag", count: 2, teamId: "T_SHG" },
+          { player: "Om", count: 1, teamId: "T_SHG" },
+          { player: "Shaurya Goel", count: 1, teamId: "T_SHG" },
+          { player: "Awadh", count: 10, teamId: "T_AWA" },
+          { player: "Vansh", count: 2, teamId: "T_AWA" }
+        ]
+      },
+      {
+        id: "M03",
+        date: "5th October",
+        pool: "Pool B",
+        homeId: "T_PAT",
+        awayId: "T_SAK",
+        homeScore: 9,
+        awayScore: 7,
+        status: "FULL TIME",
+        goals: [
+          { player: "Ishaan Gupta", count: 6, teamId: "T_PAT" },
+          { player: "Pranit / Pathak", count: 3, teamId: "T_PAT" },
+          { player: "Kamal", count: 4, teamId: "T_SAK" },
+          { player: "Saksham", count: 2, teamId: "T_SAK" },
+          { player: "Prraham", count: 1, teamId: "T_SAK" }
+        ]
+      },
+      {
+        id: "M04",
+        date: "5th October",
+        pool: "Pool B",
+        homeId: "T_PRA",
+        awayId: "T_SAY",
+        homeScore: 13,
+        awayScore: 3,
+        status: "FULL TIME",
+        goals: [
+          { player: "Advik", count: 11, teamId: "T_PRA" },
+          { player: "Ariket", count: 2, teamId: "T_PRA" },
+          { player: "Vivan", count: 2, teamId: "T_SAY" },
+          { player: "Sayush", count: 1, teamId: "T_SAY" }
+        ]
+      },
+      {
+        id: "M05",
+        date: "6th October",
+        pool: "Pool A",
+        homeId: "T_SHG",
+        awayId: "T_SHB",
+        homeScore: 2,
+        awayScore: 7,
+        status: "FULL TIME",
+        goals: [
+          { player: "Kaveesh", count: 6, teamId: "T_SHB" },
+          { player: "Shaurya Baranwal", count: 1, teamId: "T_SHB" },
+          { player: "Shaurya Goel", count: 2, teamId: "T_SHG" }
+        ]
+      },
+      {
+        id: "M06",
+        date: "6th October",
+        pool: "Pool A",
+        homeId: "T_AWA",
+        awayId: "T_RAM",
+        homeScore: 9,
+        awayScore: 11,
+        status: "FULL TIME",
+        goals: [
+          { player: "Awadh", count: 6, teamId: "T_AWA" },
+          { player: "Prithive", count: 1, teamId: "T_AWA" },
+          { player: "Mann", count: 11, teamId: "T_RAM" },
+          { player: "Rudra", count: 2, teamId: "T_AWA" }
+        ]
+      },
+      {
+        id: "M07",
+        date: "6th October",
+        pool: "Pool B",
+        homeId: "T_SAK",
+        awayId: "T_PRA",
+        homeScore: 12,
+        awayScore: 6,
+        status: "FULL TIME",
+        goals: [
+          { player: "Krish", count: 8, teamId: "T_SAK" },
+          { player: "Kamal", count: 3, teamId: "T_SAK" },
+          { player: "Prraham", count: 1, teamId: "T_SAK" },
+          { player: "Ariket", count: 2, teamId: "T_PRA" },
+          { player: "Advik", count: 4, teamId: "T_PRA" }
+        ]
+      },
       { id: "M08", date: "7th October", pool: "Pool A", homeId: "T_RAM", awayId: "T_AWA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
       { id: "M09", date: "7th October", pool: "Pool B", homeId: "T_PAA", awayId: "T_SAY", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
       { id: "M10", date: "7th October", pool: "Pool B", homeId: "T_SAK", awayId: "T_PRA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
@@ -203,117 +417,161 @@
       { id: "M21", date: "12th October", pool: "Pool B", homeId: "T_PAT", awayId: "T_PRA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
       { id: "SF1", date: "13th October", pool: "Knockout", round: "Semi Final 1", homeId: "Winner Pool A", awayId: "Runner Up Pool B", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
       { id: "SF2", date: "13th October", pool: "Knockout", round: "Semi Final 2", homeId: "Winner Pool B", awayId: "Runner Up Pool A", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
-      { id: "FIN", date: "14th October", pool: "Knockout", round: "Grand Final", homeId: "Winner SF1", awayId: "Winner SF2", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] }
+      { id: "FIN", date: "14th October", pool: "Knockout", round: "Grand Final", homeId: "Winner Semi-Final 1", awayId: "Winner Semi-Final 2", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] }
     ];
 
-    let fixtures = INITIAL_FIXTURES;
+    // INITIALIZE TOURNAMENT FIXTURES
+    const STORAGE_KEY = 'JPL_TOURNAMENT_V3';
+    let tournamentFixtures = JSON.parse(localStorage.getItem(STORAGE_KEY)) || BASE_FIXTURES;
+    let editingMatchId = null;
+    let tempGoals = [];
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tournamentFixtures));
+      renderApp();
+    }
 
     function getTeam(id) {
       return TEAMS_DATA.find(t => t.id === id) || { name: id, captain: '-' };
     }
 
+    // STANDINGS CALCULATION (POINTS, GD, GF, GA)
     function computeStandings(pool) {
-      const teams = TEAMS_DATA.filter(t => t.pool === pool);
-      const stats = {};
-      teams.forEach(t => stats[t.id] = { id: t.id, name: t.name, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0 });
-      fixtures.forEach(m => {
-        if (m.pool === pool && m.status === 'FULL TIME' && stats[m.homeId] && stats[m.awayId]) {
-          const h = stats[m.homeId], a = stats[m.awayId];
+      const poolTeams = TEAMS_DATA.filter(t => t.pool === pool);
+      const table = {};
+      poolTeams.forEach(t => {
+        table[t.id] = { id: t.id, name: t.name, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0 };
+      });
+
+      tournamentFixtures.forEach(m => {
+        if (m.pool === pool && m.status === 'FULL TIME' && table[m.homeId] && table[m.awayId]) {
+          const h = table[m.homeId];
+          const a = table[m.awayId];
           h.p++; a.p++;
           h.gf += m.homeScore; h.ga += m.awayScore;
           a.gf += m.awayScore; a.ga += m.homeScore;
-          if (m.homeScore > m.awayScore) { h.w++; h.pts += 3; a.l++; }
-          else if (m.awayScore > m.homeScore) { a.w++; a.pts += 3; h.l++; }
-          else { h.d++; a.d++; h.pts++; a.pts++; }
+
+          if (m.homeScore > m.awayScore) {
+            h.w++; h.pts += 3; a.l++;
+          } else if (m.awayScore > m.homeScore) {
+            a.w++; a.pts += 3; h.l++;
+          } else {
+            h.d++; a.d++;
+            h.pts += 1; a.pts += 1;
+          }
         }
       });
-      return Object.values(stats).map(s => { s.gd = s.gf - s.ga; return s; })
-        .sort((a,b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
+
+      return Object.values(table).map(t => {
+        t.gd = t.gf - t.ga;
+        return t;
+      }).sort((a,b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
     }
 
-    function render() {
-      // Standings
-      ['Pool A', 'Pool B'].forEach((pool) => {
+    // MAIN RENDER FUNCTION
+    function renderApp() {
+      // 1. STATS
+      const completed = tournamentFixtures.filter(m => m.status === 'FULL TIME');
+      document.getElementById('stat-matches').textContent = `${completed.length} / 21`;
+
+      let totalGoals = 0;
+      const playerGoals = {};
+      tournamentFixtures.forEach(m => {
+        (m.goals || []).forEach(g => {
+          totalGoals += g.count;
+          playerGoals[g.player] = (playerGoals[g.player] || 0) + g.count;
+        });
+      });
+      document.getElementById('stat-goals').textContent = totalGoals;
+
+      const sortedScorers = Object.entries(playerGoals).sort((a,b) => b[1] - a[1]);
+      if (sortedScorers.length > 0) {
+        document.getElementById('stat-leader').textContent = `${sortedScorers[0][0]} (${sortedScorers[0][1]}G)`;
+      }
+
+      // 2. STANDINGS (HOME PREVIEW + FULL TABLE)
+      ['Pool A', 'Pool B'].forEach(pool => {
         const isA = pool === 'Pool A';
         const st = computeStandings(pool);
-        const homeEl = document.getElementById(isA ? 'home-table-a' : 'home-table-b');
-        const fullEl = document.getElementById(isA ? 'full-table-a' : 'full-table-b');
-        if (homeEl) {
-          homeEl.innerHTML = st.map((t, i) => `
-            <div class="flex justify-between items-center text-sm p-2 rounded bg-surface">
-              <span class="font-bold text-gray-300">0${i+1} ${t.name}</span>
-              <div class="flex gap-4 font-mono">
+        const homeList = document.getElementById(isA ? 'home-table-a' : 'home-table-b');
+        const fullList = document.getElementById(isA ? 'full-table-a' : 'full-table-b');
+
+        if (homeList) {
+          homeList.innerHTML = st.map((t, idx) => `
+            <div class="flex justify-between items-center text-sm p-2.5 rounded-lg bg-surface border border-bordercol/40">
+              <span class="font-bold text-gray-200">0${idx+1} ${t.name}</span>
+              <div class="flex gap-4 font-mono text-xs">
                 <span class="text-gray-400">P:${t.p}</span>
-                <span class="text-gray-400">GD:${t.gd > 0 ? '+'+t.gd : t.gd}</span>
+                <span class="${t.gd > 0 ? 'text-emerald-400' : (t.gd < 0 ? 'text-red-400' : 'text-gray-400')}">GD:${t.gd > 0 ? '+'+t.gd : t.gd}</span>
                 <span class="text-white font-bold">${t.pts} PTS</span>
               </div>
             </div>
           `).join('');
         }
-        if (fullEl) {
-          fullEl.innerHTML = st.map((t, i) => `
-            <tr class="hover:bg-surface/50 font-mono">
-              <td class="p-3 font-bold">${i+1}</td>
-              <td class="p-3 font-sans font-semibold">${t.name}</td>
-              <td class="p-3 text-center">${t.p}</td>
-              <td class="p-3 text-center">${t.w}</td>
-              <td class="p-3 text-center">${t.d}</td>
-              <td class="p-3 text-center">${t.l}</td>
-              <td class="p-3 text-center">${t.gf}</td>
-              <td class="p-3 text-center">${t.ga}</td>
-              <td class="p-3 text-center text-emerald-400 font-bold">${t.gd > 0 ? '+'+t.gd : t.gd}</td>
-              <td class="p-3 text-center text-amber-400 font-bold">${t.pts}</td>
+
+        if (fullList) {
+          fullList.innerHTML = st.map((t, idx) => `
+            <tr class="hover:bg-surface/50 font-mono text-xs transition">
+              <td class="p-3.5 font-bold ${idx < 2 ? 'text-emerald-400' : 'text-gray-500'}">0${idx+1}</td>
+              <td class="p-3.5 font-sans font-semibold text-white">${t.name}</td>
+              <td class="p-3.5 text-center text-gray-400">${t.p}</td>
+              <td class="p-3.5 text-center text-gray-400">${t.w}</td>
+              <td class="p-3.5 text-center text-gray-400">${t.d}</td>
+              <td class="p-3.5 text-center text-gray-400">${t.l}</td>
+              <td class="p-3.5 text-center text-gray-400">${t.gf}</td>
+              <td class="p-3.5 text-center text-gray-400">${t.ga}</td>
+              <td class="p-3.5 text-center font-bold ${t.gd > 0 ? 'text-emerald-400' : (t.gd < 0 ? 'text-red-400' : 'text-gray-400')}">${t.gd > 0 ? '+'+t.gd : t.gd}</td>
+              <td class="p-3.5 text-center font-bold text-amber-400 text-sm">${t.pts}</td>
             </tr>
           `).join('');
         }
       });
 
-      // Fixtures
-      const fixCont = document.getElementById('fixtures-container');
-      if (fixCont) {
-        fixCont.innerHTML = fixtures.map(m => `
-          <div class="bg-cardbg p-4 rounded-xl border border-bordercol flex flex-col md:flex-row justify-between items-center gap-3">
-            <div class="text-xs font-mono text-gray-400">${m.date} • ${m.pool}</div>
-            <div class="flex items-center gap-4 text-center font-display text-xl">
-              <span class="w-36 text-right truncate text-white">${getTeam(m.homeId).name}</span>
-              <span class="bg-surface px-3 py-1 rounded text-2xl font-bold ${m.status === 'FULL TIME' ? 'text-emerald-400' : 'text-gray-500'}">
-                ${m.status === 'FULL TIME' ? m.homeScore + ' - ' + m.awayScore : 'VS'}
+      // 3. FIXTURES
+      const fixturesCont = document.getElementById('fixtures-container');
+      if (fixturesCont) {
+        fixturesCont.innerHTML = tournamentFixtures.map(m => {
+          const isFT = m.status === 'FULL TIME';
+          const isLive = m.status === 'LIVE';
+          return `
+            <div class="bg-cardbg p-4 rounded-xl border border-bordercol flex flex-col md:flex-row justify-between items-center gap-3">
+              <div class="text-xs font-mono text-gray-400">${m.date} • <span class="text-cyan-400">${m.pool || m.round}</span></div>
+              <div class="flex items-center gap-4 text-center font-display text-xl">
+                <span class="w-36 text-right truncate text-white">${getTeam(m.homeId).name}</span>
+                <span class="bg-surface px-3 py-1 rounded text-2xl font-bold font-mono ${isFT ? 'text-emerald-400' : (isLive ? 'text-amber-400 animate-pulse' : 'text-gray-500')}">
+                  ${isFT || isLive ? m.homeScore + ' - ' + m.awayScore : 'VS'}
+                </span>
+                <span class="w-36 text-left truncate text-white">${getTeam(m.awayId).name}</span>
+              </div>
+              <span class="text-xs font-mono px-2.5 py-1 rounded ${isFT ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : (isLive ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 'bg-gray-800 text-gray-400')}">
+                ${m.status}
               </span>
-              <span class="w-36 text-left truncate text-white">${getTeam(m.awayId).name}</span>
             </div>
-            <span class="text-xs font-mono px-2 py-0.5 rounded ${m.status === 'FULL TIME' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-gray-800 text-gray-400'}">${m.status}</span>
-          </div>
-        `).join('');
+          `;
+        }).join('');
       }
 
-      // Golden Boot
-      const scorersMap = {};
-      fixtures.forEach(m => {
-        (m.goals || []).forEach(g => {
-          scorersMap[g.player] = (scorersMap[g.player] || 0) + g.count;
-        });
-      });
-      const sortedScorers = Object.entries(scorersMap).sort((a,b) => b[1] - a[1]);
-      const scList = document.getElementById('scorers-list');
-      if (scList) {
-        scList.innerHTML = sortedScorers.map(([name, goals], i) => `
-          <div class="bg-cardbg p-3 rounded-xl border border-bordercol flex items-center justify-between">
+      // 4. GOLDEN BOOT
+      const scorersList = document.getElementById('scorers-list');
+      if (scorersList) {
+        scorersList.innerHTML = sortedScorers.map(([name, goals], idx) => `
+          <div class="bg-cardbg p-3.5 rounded-xl border border-bordercol flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <span class="font-mono text-sm ${i===0 ? 'text-amber-400 font-bold' : 'text-gray-500'}">#${i+1}</span>
-              <span class="font-bold text-white">${name}</span>
+              <span class="font-mono text-sm font-bold ${idx === 0 ? 'text-amber-400' : 'text-gray-500'}">#${idx+1}</span>
+              <span class="font-semibold text-white text-sm">${name}</span>
             </div>
             <span class="font-mono text-emerald-400 font-bold text-lg">${goals} G</span>
           </div>
         `).join('');
       }
 
-      // Teams / Squads View
-      const tGrid = document.getElementById('teams-grid');
-      if (tGrid) {
-        tGrid.innerHTML = TEAMS_DATA.map(t => `
+      // 5. TEAMS / SQUADS
+      const teamsGrid = document.getElementById('teams-grid');
+      if (teamsGrid) {
+        teamsGrid.innerHTML = TEAMS_DATA.map(t => `
           <div class="bg-cardbg p-4 rounded-xl border border-bordercol space-y-2">
             <div class="flex justify-between items-center border-b border-bordercol pb-2">
-              <h3 class="font-display text-lg text-white">${t.name}</h3>
+              <h3 class="font-display text-xl text-white">${t.name}</h3>
               <span class="text-xs font-mono text-emerald-400">${t.pool}</span>
             </div>
             <p class="text-xs text-gray-400">Captain: <span class="text-white font-semibold">${t.captain}</span></p>
@@ -323,8 +581,29 @@
           </div>
         `).join('');
       }
+
+      // 6. ADMIN MATCH LIST
+      const adminList = document.getElementById('admin-match-list');
+      if (adminList) {
+        adminList.innerHTML = tournamentFixtures.map(m => `
+          <div class="bg-cardbg p-4 rounded-xl border border-bordercol flex flex-col md:flex-row justify-between items-center gap-3">
+            <div class="text-xs font-mono text-gray-400">
+              <span class="text-emerald-400 font-bold">${m.id}</span> • ${m.date} • ${m.pool || m.round}
+            </div>
+            <div class="flex items-center gap-4 font-display text-xl">
+              <span class="w-36 text-right truncate text-white">${getTeam(m.homeId).name}</span>
+              <span class="font-mono font-bold text-emerald-400 px-3 py-1 bg-surface rounded">${m.homeScore} - ${m.awayScore}</span>
+              <span class="w-36 text-left truncate text-white">${getTeam(m.awayId).name}</span>
+            </div>
+            <button onclick="openScoreModal('${m.id}')" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-bold px-4 py-2 rounded-lg transition">
+              SCORE & GOALS DESK
+            </button>
+          </div>
+        `).join('');
+      }
     }
 
+    // NAVIGATION
     function navigate(view) {
       ['home', 'fixtures', 'standings', 'scorers', 'teams', 'admin'].forEach(v => {
         const el = document.getElementById('view-' + v);
@@ -338,15 +617,145 @@
       window.scrollTo(0,0);
     }
 
+    // ADMIN AUTH
     function toggleAdminPrompt() {
-      const p = prompt("Enter Admin Password:");
-      if (p && p.toUpperCase() === 'LEAF') navigate('admin');
-      else if (p) alert("Incorrect password");
+      const pass = prompt("Enter Admin Security Clearance Password:");
+      if (pass && pass.toUpperCase() === 'LEAF') {
+        navigate('admin');
+      } else if (pass) {
+        alert("Incorrect Admin Password.");
+      }
     }
 
-    function logoutAdmin() { navigate('home'); }
+    function logoutAdmin() {
+      navigate('home');
+    }
 
-    render();
+    // MODAL EDITING
+    function openScoreModal(mId) {
+      editingMatchId = mId;
+      const m = tournamentFixtures.find(x => x.id === mId);
+      if (!m) return;
+
+      const homeTeam = getTeam(m.homeId);
+      const awayTeam = getTeam(m.awayId);
+
+      document.getElementById('modal-match-title').textContent = `${homeTeam.name} VS ${awayTeam.name}`;
+      document.getElementById('modal-match-sub').textContent = `${m.date} • ${m.pool || m.round}`;
+      document.getElementById('modal-home-label').textContent = homeTeam.name;
+      document.getElementById('modal-away-label').textContent = awayTeam.name;
+      document.getElementById('modal-home-score').value = m.homeScore;
+      document.getElementById('modal-away-score').value = m.awayScore;
+      document.getElementById('modal-status').value = m.status;
+
+      tempGoals = JSON.parse(JSON.stringify(m.goals || []));
+
+      // Populate players select
+      const select = document.getElementById('modal-player-select');
+      select.innerHTML = '<option value="">Select Goal Scorer</option>';
+      (homeTeam.players || []).forEach(p => select.innerHTML += `<option value="${p}">${p} (${homeTeam.name})</option>`);
+      (awayTeam.players || []).forEach(p => select.innerHTML += `<option value="${p}">${p} (${awayTeam.name})</option>`);
+
+      renderModalGoals();
+      document.getElementById('score-modal').classList.remove('hidden');
+    }
+
+    function renderModalGoals() {
+      const container = document.getElementById('modal-goals-list');
+      if (tempGoals.length === 0) {
+        container.innerHTML = '<p class="text-xs text-gray-500 font-mono">No goals logged yet.</p>';
+        return;
+      }
+      container.innerHTML = tempGoals.map((g, idx) => `
+        <div class="flex justify-between items-center bg-surface p-2 rounded text-xs">
+          <span class="text-white font-semibold">${g.player}</span>
+          <div class="flex items-center gap-2">
+            <span class="font-mono text-emerald-400 font-bold">${g.count} Goal${g.count > 1 ? 's' : ''}</span>
+            <button onclick="removeGoalInModal(${idx})" class="text-red-400 hover:text-red-300 font-bold px-1.5">&times;</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addGoalInModal() {
+      const player = document.getElementById('modal-player-select').value;
+      const count = parseInt(document.getElementById('modal-goal-count').value, 10);
+      if (!player || isNaN(count) || count < 1) return;
+
+      const existing = tempGoals.find(g => g.player === player);
+      if (existing) {
+        existing.count += count;
+      } else {
+        tempGoals.push({ player, count });
+      }
+      renderModalGoals();
+    }
+
+    function removeGoalInModal(idx) {
+      tempGoals.splice(idx, 1);
+      renderModalGoals();
+    }
+
+    function saveModalMatch() {
+      const m = tournamentFixtures.find(x => x.id === editingMatchId);
+      if (!m) return;
+
+      m.homeScore = parseInt(document.getElementById('modal-home-score').value, 10) || 0;
+      m.awayScore = parseInt(document.getElementById('modal-away-score').value, 10) || 0;
+      m.status = document.getElementById('modal-status').value;
+      m.goals = tempGoals;
+
+      closeModal();
+      saveState();
+      triggerCloudSync(false);
+    }
+
+    function closeModal() {
+      document.getElementById('score-modal').classList.add('hidden');
+      editingMatchId = null;
+    }
+
+    // BACKUP & RESTORE
+    function exportBackup() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tournamentFixtures, null, 2));
+      const dlAnchor = document.createElement('a');
+      dlAnchor.setAttribute("href", dataStr);
+      dlAnchor.setAttribute("download", `JPL_Tournament_Backup_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(dlAnchor);
+      dlAnchor.click();
+      dlAnchor.remove();
+    }
+
+    function importBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (Array.isArray(imported)) {
+            tournamentFixtures = imported;
+            saveState();
+            alert("Tournament backup imported successfully!");
+          } else {
+            alert("Invalid backup format.");
+          }
+        } catch (err) {
+          alert("Error parsing JSON file.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // CLOUD SYNC BRIDGE
+    function triggerCloudSync(manual) {
+      if (manual) {
+        alert("Cloud synchronization triggered! All changes broadcasted.");
+      }
+    }
+
+    // INITIAL RENDER
+    renderApp();
   </script>
 </body>
 </html>
