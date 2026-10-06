@@ -1,10 +1,9 @@
-TextEdit
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jayappa Premier League (JPL) — Official Match Center</title>
+  <title>Jayappa Premier League (JPL) — Official Tournament Center</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,1217 +30,323 @@ TextEdit
           }
         }
       }
-    }
+    };
   </script>
   <style>
-    body {
-      background-color: #050507;
-      color: #F3F4F6;
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-    }
-    .stadium-mesh {
-      background-image: 
-        radial-gradient(circle at 50% -10%, rgba(0, 245, 160, 0.12), transparent 55%),
-        radial-gradient(circle at 85% 25%, rgba(0, 217, 245, 0.08), transparent 45%),
-        radial-gradient(circle at 15% 45%, rgba(255, 46, 91, 0.06), transparent 50%);
-    }
-    .live-pulse-badge {
-      animation: liveGlow 1.8s infinite ease-in-out;
-    }
-    @keyframes liveGlow {
-      0%, 100% { box-shadow: 0 0 6px #FF2E5B; transform: scale(1); }
-      50% { box-shadow: 0 0 16px #FF2E5B; transform: scale(1.03); }
-    }
-    .gold-glow {
-      box-shadow: 0 0 25px -4px rgba(255, 184, 0, 0.35);
-    }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #050507; }
-    ::-webkit-scrollbar-thumb { background: #222533; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #00F5A0; }
+    body { background-color: #050507; color: #F1F5F9; font-family: 'Inter', sans-serif; }
+    .display-font { font-family: 'Teko', sans-serif; letter-spacing: 0.05em; text-transform: uppercase; }
+    .mono-font { font-family: 'JetBrains Mono', monospace; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-electric selection:text-black">
-
-  <!-- TOP HEADER / NAV -->
-  <header class="border-b border-bordercol bg-obsidian/95 backdrop-blur sticky top-0 z-40">
-    <div class="bg-surface/70 border-b border-bordercol/60 px-4 py-1.5 text-[11px] font-mono flex items-center justify-between text-gray-400">
-      <div class="flex items-center space-x-2">
-        <span id="cloudSyncIndicator" class="w-2 h-2 rounded-full bg-electric animate-pulse"></span>
-        <span id="cloudSyncText" class="uppercase font-bold text-gray-300">Live JPL Multi-Device Sync Active</span>
-      </div>
-      <div class="text-[10px] text-gray-400 font-mono flex items-center gap-2">
-        <span id="lastSyncedTime">Synced</span>
-        <span class="text-gray-600">•</span>
-        <span>SEASON 2026</span>
+<body class="min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-black">
+  <!-- TOP BANNER -->
+  <header class="border-b border-bordercol bg-cardbg/80 backdrop-blur sticky top-0 z-50 px-4 lg:px-8 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
+      <div class="bg-gradient-to-tr from-emerald-500 to-cyan-500 text-black font-black px-2.5 py-1 rounded text-xl font-display">JPL</div>
+      <div>
+        <h1 class="text-lg md:text-xl font-display leading-none text-white tracking-wide">JAYAPPA PREMIER LEAGUE</h1>
+        <p class="text-[10px] text-gray-400 uppercase tracking-widest">Tournament Match Center</p>
       </div>
     </div>
-
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center space-x-3 cursor-pointer" onclick="navigate('home')">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-electric via-neoncyan to-blue-600 flex items-center justify-center font-display text-2xl text-black font-bold tracking-wider shadow-lg shadow-electric/20">
-          JPL
-        </div>
-        <div>
-          <h1 class="font-display text-2xl tracking-wider leading-none text-white">JAYAPPA PREMIER LEAGUE</h1>
-          <p class="text-[10px] text-gray-400 uppercase tracking-widest font-mono">Tournament Match Center</p>
-        </div>
-      </div>
-
-      <!-- Navigation Desktop -->
-      <nav class="hidden md:flex items-center space-x-1 font-semibold text-sm">
-        <button onclick="navigate('home')" id="tab-home" class="px-3.5 py-1.5 rounded-lg text-electric font-bold transition">Home</button>
-        <button onclick="navigate('fixtures')" id="tab-fixtures" class="px-3.5 py-1.5 rounded-lg text-gray-300 hover:text-white transition">Fixtures</button>
-        <button onclick="navigate('standings')" id="tab-standings" class="px-3.5 py-1.5 rounded-lg text-gray-300 hover:text-white transition">Points Table</button>
-        <button onclick="navigate('scorers')" id="tab-scorers" class="px-3.5 py-1.5 rounded-lg text-goldboot hover:text-white transition flex items-center gap-1">
-          <span>👑</span> Golden Boot
-        </button>
-        <button onclick="navigate('teams')" id="tab-teams" class="px-3.5 py-1.5 rounded-lg text-gray-300 hover:text-white transition">Squads</button>
+    <div class="flex items-center gap-2 md:gap-4">
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-300">
+        <button id="tab-home" onclick="navigate('home')" class="hover:text-emerald-400 text-emerald-400 font-bold">Home</button>
+        <button id="tab-fixtures" onclick="navigate('fixtures')" class="hover:text-emerald-400">Fixtures</button>
+        <button id="tab-standings" onclick="navigate('standings')" class="hover:text-emerald-400">Points Table</button>
+        <button id="tab-scorers" onclick="navigate('scorers')" class="hover:text-emerald-400">👑 Golden Boot</button>
+        <button id="tab-teams" onclick="navigate('teams')" class="hover:text-emerald-400">Squads</button>
       </nav>
-
-      <!-- Admin Button -->
-      <div class="flex items-center space-x-2">
-        <button onclick="handleAdminBtnClick()" id="adminNavBtn" class="px-3.5 py-1.5 rounded-xl bg-surface border border-bordercol hover:border-crimson text-gray-300 hover:text-white text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5">
-          <span id="adminLockIcon">🔒</span>
-          <span id="adminNavLabel">Admin Login</span>
-        </button>
-      </div>
+      <button id="admin-auth-btn" onclick="toggleAdminPrompt()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs px-3 py-1.5 rounded font-mono font-bold tracking-wider transition">🛡 ADMIN DESK</button>
     </div>
   </header>
 
   <!-- MAIN WRAPPER -->
-  <main class="max-w-7xl mx-auto px-4 py-6 w-full flex-grow stadium-mesh">
-
-    <!-- VIEW 1: HOME PAGE -->
-    <div id="view-home" class="space-y-8">
-      <!-- HERO MATCH SECTION -->
-      <section id="heroMatchContainer" class="p-6 md:p-8 rounded-3xl bg-cardbg border border-bordercol relative shadow-2xl overflow-hidden"></section>
-
-      <!-- SNAPSHOT STATS -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="p-4 rounded-2xl bg-cardbg border border-bordercol">
-          <p class="text-[11px] font-mono uppercase text-gray-400 font-bold">Matches Completed</p>
-          <p id="statCompletedMatches" class="font-display text-4xl text-white">4 / 21</p>
+  <main class="max-w-6xl w-full mx-auto p-4 md:p-6 flex-grow">
+    <!-- VIEW: HOME -->
+    <section id="view-home" class="space-y-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="bg-cardbg p-4 rounded-xl border border-bordercol">
+          <p class="text-xs uppercase text-gray-400 tracking-wider">Matches Completed</p>
+          <p id="stat-matches" class="text-3xl font-display text-white mt-1">7 / 21</p>
         </div>
-        <div class="p-4 rounded-2xl bg-cardbg border border-bordercol">
-          <p class="text-[11px] font-mono uppercase text-gray-400 font-bold">Total Goals</p>
-          <p id="statTotalGoals" class="font-display text-4xl text-electric">58</p>
+        <div class="bg-cardbg p-4 rounded-xl border border-bordercol">
+          <p class="text-xs uppercase text-gray-400 tracking-wider">Total Goals</p>
+          <p id="stat-goals" class="text-3xl font-display text-emerald-400 mt-1">105</p>
         </div>
-        <div class="p-4 rounded-2xl bg-cardbg border border-bordercol">
-          <p class="text-[11px] font-mono uppercase text-gray-400 font-bold">Registered Players</p>
-          <p class="font-display text-4xl text-neoncyan">42</p>
+        <div class="bg-cardbg p-4 rounded-xl border border-bordercol">
+          <p class="text-xs uppercase text-gray-400 tracking-wider">Registered Players</p>
+          <p class="text-3xl font-display text-cyan-400 mt-1">42</p>
         </div>
-        <div onclick="navigate('scorers')" class="p-4 rounded-2xl bg-cardbg border border-goldboot/40 hover:border-goldboot transition cursor-pointer">
-          <p class="text-[11px] font-mono uppercase text-goldboot font-bold flex items-center gap-1">
-            <span>👑</span> Top Goal Scorer
-          </p>
-          <p id="statGoldenBootLeader" class="font-display text-2xl text-white truncate pt-1 leading-tight">Advik (11G)</p>
+        <div class="bg-cardbg p-4 rounded-xl border border-bordercol">
+          <p class="text-xs uppercase text-gray-400 tracking-wider">Top Goal Scorer</p>
+          <p id="stat-leader" class="text-xl font-display text-amber-400 mt-1 truncate">Awadh (16G)</p>
         </div>
       </div>
 
-      <!-- POOL STANDINGS SUMMARY -->
-      <div class="grid lg:grid-cols-2 gap-6">
-        <div class="p-5 rounded-2xl bg-cardbg border border-bordercol space-y-3">
-          <div class="flex items-center justify-between pb-2 border-b border-bordercol">
-            <h3 class="font-display text-2xl text-electric tracking-wide">POOL A STANDINGS</h3>
-            <button onclick="navigate('standings')" class="text-xs text-gray-400 hover:text-white font-mono">Full Table →</button>
+      <!-- STANDINGS PREVIEW -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-cardbg p-5 rounded-2xl border border-bordercol">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-display text-emerald-400">POOL A STANDINGS</h2>
+            <button onclick="navigate('standings')" class="text-xs text-gray-400 hover:text-white">Full Table →</button>
           </div>
-          <div id="homeTablePoolA" class="overflow-x-auto"></div>
+          <div id="home-table-a" class="space-y-2"></div>
         </div>
-
-        <div class="p-5 rounded-2xl bg-cardbg border border-bordercol space-y-3">
-          <div class="flex items-center justify-between pb-2 border-b border-bordercol">
-            <h3 class="font-display text-2xl text-neoncyan tracking-wide">POOL B STANDINGS</h3>
-            <button onclick="navigate('standings')" class="text-xs text-gray-400 hover:text-white font-mono">Full Table →</button>
+        <div class="bg-cardbg p-5 rounded-2xl border border-bordercol">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-display text-cyan-400">POOL B STANDINGS</h2>
+            <button onclick="navigate('standings')" class="text-xs text-gray-400 hover:text-white">Full Table →</button>
           </div>
-          <div id="homeTablePoolB" class="overflow-x-auto"></div>
+          <div id="home-table-b" class="space-y-2"></div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- VIEW 2: FIXTURES -->
-    <div id="view-fixtures" class="space-y-6 hidden">
-      <div class="flex flex-wrap items-center justify-between gap-4">
+    <!-- VIEW: FIXTURES -->
+    <section id="view-fixtures" class="hidden space-y-4">
+      <div class="flex justify-between items-center mb-2">
+        <h2 class="text-2xl font-display text-white">TOURNAMENT FIXTURES & RESULTS</h2>
+        <span class="text-xs text-gray-400 font-mono">21 MATCHES</span>
+      </div>
+      <div id="fixtures-container" class="space-y-3"></div>
+    </section>
+
+    <!-- VIEW: STANDINGS -->
+    <section id="view-standings" class="hidden space-y-6">
+      <div>
+        <h2 class="text-2xl font-display text-emerald-400 mb-3">POOL A</h2>
+        <div class="overflow-x-auto bg-cardbg rounded-xl border border-bordercol">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-surface text-gray-400 text-xs uppercase font-mono">
+              <tr><th class="p-3">#</th><th class="p-3">Team</th><th class="p-3 text-center">P</th><th class="p-3 text-center">W</th><th class="p-3 text-center">D</th><th class="p-3 text-center">L</th><th class="p-3 text-center">GF</th><th class="p-3 text-center">GA</th><th class="p-3 text-center">GD</th><th class="p-3 text-center">PTS</th></tr>
+            </thead>
+            <tbody id="full-table-a" class="divide-y divide-bordercol"></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h2 class="text-2xl font-display text-cyan-400 mb-3">POOL B</h2>
+        <div class="overflow-x-auto bg-cardbg rounded-xl border border-bordercol">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-surface text-gray-400 text-xs uppercase font-mono">
+              <tr><th class="p-3">#</th><th class="p-3">Team</th><th class="p-3 text-center">P</th><th class="p-3 text-center">W</th><th class="p-3 text-center">D</th><th class="p-3 text-center">L</th><th class="p-3 text-center">GF</th><th class="p-3 text-center">GA</th><th class="p-3 text-center">GD</th><th class="p-3 text-center">PTS</th></tr>
+            </thead>
+            <tbody id="full-table-b" class="divide-y divide-bordercol"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW: SCORERS -->
+    <section id="view-scorers" class="hidden space-y-4">
+      <div class="flex justify-between items-center mb-2">
+        <h2 class="text-2xl font-display text-amber-400">👑 GOLDEN BOOT LEADERBOARD</h2>
+        <span class="text-xs text-gray-400 font-mono">LIVE RANKING</span>
+      </div>
+      <div id="scorers-list" class="grid sm:grid-cols-2 md:grid-cols-3 gap-3"></div>
+    </section>
+
+    <!-- VIEW: TEAMS -->
+    <section id="view-teams" class="hidden space-y-4">
+      <h2 class="text-2xl font-display text-white mb-2">PARTICIPATING SQUADS (10 TEAMS)</h2>
+      <div id="teams-grid" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+    </section>
+
+    <!-- VIEW: ADMIN -->
+    <section id="view-admin" class="hidden space-y-6">
+      <div class="bg-red-500/10 border border-red-500/30 p-4 rounded-xl flex items-center justify-between">
         <div>
-          <h2 class="font-display text-4xl text-white tracking-wide">MATCH FIXTURES & RESULTS</h2>
-          <p class="text-xs font-mono text-gray-400">Complete tournament schedule: 5th to 14th October</p>
+          <h2 class="text-xl font-display text-red-400">ADMIN SCORING DESK</h2>
+          <p class="text-xs text-gray-400">Day 1 and Day 2 results baked in permanently.</p>
         </div>
-        <div class="flex space-x-1.5 font-mono text-xs">
-          <button onclick="setFixtureFilter('ALL')" class="fix-filter-btn px-3 py-1.5 rounded-lg bg-surface border border-electric text-white font-bold" data-filter="ALL">All</button>
-          <button onclick="setFixtureFilter('Pool A')" class="fix-filter-btn px-3 py-1.5 rounded-lg bg-surface border border-bordercol text-gray-400 hover:text-white" data-filter="Pool A">Pool A</button>
-          <button onclick="setFixtureFilter('Pool B')" class="fix-filter-btn px-3 py-1.5 rounded-lg bg-surface border border-bordercol text-gray-400 hover:text-white" data-filter="Pool B">Pool B</button>
-          <button onclick="setFixtureFilter('Knockout')" class="fix-filter-btn px-3 py-1.5 rounded-lg bg-surface border border-bordercol text-gray-400 hover:text-white" data-filter="Knockout">Knockouts</button>
-        </div>
+        <button onclick="logoutAdmin()" class="bg-red-600 hover:bg-red-500 text-white text-xs px-4 py-2 rounded font-bold">EXIT ADMIN</button>
       </div>
-
-      <div id="fixturesListContainer" class="space-y-3.5"></div>
-    </div>
-
-    <!-- VIEW 3: FULL STANDINGS TABLE -->
-    <div id="view-standings" class="space-y-8 hidden">
-      <div>
-        <h2 class="font-display text-4xl text-white tracking-wide">TOURNAMENT POINTS TABLES</h2>
-        <p class="text-xs font-mono text-gray-400">Win = 3 PTS • Draw = 1 PT • Loss = 0 PTS | Sorted by PTS, then GD, then GF | Top 2 Teams Qualify for Semi-Finals</p>
-      </div>
-
-      <div class="p-6 rounded-3xl bg-cardbg border border-bordercol space-y-4">
-        <div class="flex items-center justify-between pb-3 border-b border-bordercol">
-          <h3 class="font-display text-3xl text-electric">POOL A</h3>
-          <span class="px-2.5 py-1 rounded bg-electric/10 border border-electric/30 text-electric text-[10px] font-mono font-bold uppercase">Top 2 Qualify for Semi-Finals</span>
-        </div>
-        <div id="fullStandingsPoolA" class="overflow-x-auto"></div>
-      </div>
-
-      <div class="p-6 rounded-3xl bg-cardbg border border-bordercol space-y-4">
-        <div class="flex items-center justify-between pb-3 border-b border-bordercol">
-          <h3 class="font-display text-3xl text-neoncyan">POOL B</h3>
-          <span class="px-2.5 py-1 rounded bg-neoncyan/10 border border-neoncyan/30 text-neoncyan text-[10px] font-mono font-bold uppercase">Top 2 Qualify for Semi-Finals</span>
-        </div>
-        <div id="fullStandingsPoolB" class="overflow-x-auto"></div>
-      </div>
-    </div>
-
-    <!-- VIEW 4: GOLDEN BOOT (TOP SCORERS) -->
-    <div id="view-scorers" class="space-y-6 hidden">
-      <div>
-        <h2 class="font-display text-4xl text-goldboot tracking-wide flex items-center gap-2">
-          <span>👑</span> GOLDEN BOOT LEADERBOARD
-        </h2>
-        <p class="text-xs font-mono text-gray-400">Live official ranking of highest goal scorers across all JPL matches</p>
-      </div>
-
-      <div id="goldenBootLeaderSpotlight"></div>
-      <div id="goldenBootListContainer" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-    </div>
-
-    <!-- VIEW 5: SQUADS -->
-    <div id="view-teams" class="space-y-6 hidden">
-      <div>
-        <h2 class="font-display text-4xl text-white tracking-wide">OFFICIAL REGISTERED SQUADS</h2>
-        <p class="text-xs font-mono text-gray-400">All 10 Captain squads and verified rosters (Mann in Team Ram & Chirag in Team Shaurya G)</p>
-      </div>
-
-      <div id="squadsRosterContainer" class="grid md:grid-cols-2 gap-6"></div>
-    </div>
-
-    <!-- VIEW 6: ADMIN MATCH CONTROL DESK (STRICTLY PRIVATE) -->
-    <div id="view-admin" class="space-y-6 hidden">
-      <div class="p-5 rounded-2xl bg-crimson/10 border border-crimson/40 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 class="font-display text-3xl text-crimson leading-none">ADMIN SCORING DESK</h2>
-          <p class="text-xs font-mono text-gray-300 mt-1">Authorized Clearance Active • Live changes sync across all connected spectators' phones</p>
-        </div>
-        <div class="flex flex-wrap items-center gap-2">
-          <button onclick="exportBackupJSON()" class="px-3 py-1.5 rounded-lg bg-surface hover:bg-cardbg text-[11px] font-mono font-bold text-electric border border-electric/40 transition">
-            💾 Export Backup
-          </button>
-          <label class="px-3 py-1.5 rounded-lg bg-surface hover:bg-cardbg text-[11px] font-mono font-bold text-neoncyan border border-neoncyan/40 cursor-pointer transition">
-            📂 Import Backup
-            <input type="file" id="importBackupInput" accept=".json" class="hidden" onchange="importBackupJSON(event)">
-          </label>
-          <button onclick="forceSyncFromCloud()" class="px-3 py-1.5 rounded-lg bg-surface hover:bg-cardbg text-[11px] font-mono font-bold text-gray-300 border border-bordercol transition">
-            🔄 Cloud Sync
-          </button>
-          <button onclick="logoutAdmin()" class="px-3 py-1.5 rounded-lg bg-crimson hover:bg-rose-600 text-xs font-bold uppercase tracking-wider text-white transition">
-            Exit Admin
-          </button>
-        </div>
-      </div>
-
-      <div class="space-y-3" id="adminMatchesList"></div>
-    </div>
-
+      <div id="admin-match-list" class="space-y-4"></div>
+    </section>
   </main>
 
-  <!-- ADMIN AUTH MODAL (PASSWORD: LEAF) -->
-  <div id="adminPinModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-cardbg border border-bordercol max-w-sm w-full p-6 rounded-3xl shadow-2xl space-y-5 text-center">
-      <div class="w-12 h-12 rounded-2xl bg-crimson/15 border border-crimson/40 text-crimson text-xl flex items-center justify-center mx-auto">
-        🔒
-      </div>
-      <div>
-        <h3 class="font-display text-3xl text-white">ADMIN VERIFICATION</h3>
-        <p class="text-xs font-mono text-gray-400 mt-1">Enter the administrator password to control match scores and add goals.</p>
-      </div>
-
-      <form onsubmit="submitAdminPin(event)" class="space-y-4">
-        <input type="password" id="adminPinInputField" placeholder="Enter Password" required class="w-full bg-surface border border-bordercol rounded-xl px-4 py-3 text-center text-xl font-mono tracking-widest text-white focus:outline-none focus:border-crimson" />
-        <div class="flex gap-2 font-mono text-xs">
-          <button type="button" onclick="document.getElementById('adminPinModal').classList.add('hidden')" class="w-1/2 py-2.5 rounded-xl bg-surface border border-bordercol text-gray-400 hover:text-white">Cancel</button>
-          <button type="submit" class="w-1/2 py-2.5 rounded-xl bg-crimson hover:bg-rose-600 font-bold text-white uppercase tracking-wider">Unlock</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ADMIN SCORE & GOAL CONTROLLER MODAL -->
-  <div id="adminScoreModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-cardbg border border-bordercol max-w-lg w-full p-6 rounded-3xl shadow-2xl space-y-6">
-      <div class="flex items-center justify-between pb-3 border-b border-bordercol">
-        <div>
-          <span id="modalMatchBadge" class="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-surface border border-bordercol text-gray-300">Live Scoring Desk</span>
-          <p id="modalMatchDate" class="text-xs font-mono text-gray-400 mt-1"></p>
-        </div>
-        <button onclick="closeScoreModal()" class="text-gray-400 hover:text-white text-xl p-1">✕</button>
-      </div>
-
-      <!-- Match Score Board Control -->
-      <div class="grid grid-cols-7 items-center text-center">
-        <div class="col-span-3">
-          <h4 id="modalTeamAName" class="font-display text-2xl text-white truncate"></h4>
-          <span id="modalTeamAScore" class="font-display text-6xl text-electric block leading-none my-1">0</span>
-          <button onclick="openGoalDrawer('A')" class="w-full py-2 bg-electric/15 hover:bg-electric text-electric hover:text-black border border-electric/40 rounded-xl text-xs font-bold uppercase tracking-wider transition">
-            + Goal
-          </button>
-        </div>
-
-        <div class="col-span-1 flex flex-col items-center justify-center px-1">
-          <span class="font-display text-2xl text-gray-500">VS</span>
-        </div>
-
-        <div class="col-span-3">
-          <h4 id="modalTeamBName" class="font-display text-2xl text-white truncate"></h4>
-          <span id="modalTeamBScore" class="font-display text-6xl text-neoncyan block leading-none my-1">0</span>
-          <button onclick="openGoalDrawer('B')" class="w-full py-2 bg-neoncyan/15 hover:bg-neoncyan text-neoncyan hover:text-black border border-neoncyan/40 rounded-xl text-xs font-bold uppercase tracking-wider transition">
-            + Goal
-          </button>
-        </div>
-      </div>
-
-      <!-- Match Status Selector -->
-      <div class="p-3 bg-surface rounded-2xl border border-bordercol space-y-2">
-        <p class="text-[10px] font-mono uppercase text-gray-400 font-bold">Match Status</p>
-        <div class="grid grid-cols-3 gap-2 font-mono text-xs">
-          <button type="button" onclick="updateCurrentMatchStatus('SCHEDULED')" id="btnStatusScheduled" class="py-2 rounded-xl bg-cardbg border border-bordercol text-gray-400 font-bold">SCHEDULED</button>
-          <button type="button" onclick="updateCurrentMatchStatus('LIVE')" id="btnStatusLive" class="py-2 rounded-xl bg-cardbg border border-bordercol text-crimson font-bold">● LIVE</button>
-          <button type="button" onclick="updateCurrentMatchStatus('FULL TIME')" id="btnStatusFT" class="py-2 rounded-xl bg-cardbg border border-bordercol text-gray-400 font-bold">FULL TIME</button>
-        </div>
-      </div>
-
-      <!-- Goal Attribution Drawer -->
-      <div id="addGoalDrawer" class="hidden p-4 rounded-2xl bg-surface border border-electric/40 space-y-3">
-        <h5 id="goalDrawerHeading" class="text-xs font-bold font-mono text-electric uppercase tracking-wide"></h5>
-        <div class="flex gap-2 font-mono text-xs">
-          <select id="goalPlayerSelect" class="flex-grow bg-cardbg border border-bordercol rounded-xl px-3 py-2 text-white focus:outline-none focus:border-electric"></select>
-          <input type="number" id="goalCountInput" value="1" min="1" max="20" placeholder="Qty" class="w-20 bg-cardbg border border-bordercol rounded-xl px-2 py-2 text-white text-center focus:outline-none focus:border-electric" />
-        </div>
-        <div class="flex justify-end gap-2 font-mono text-xs">
-          <button type="button" onclick="closeGoalDrawer()" class="px-3 py-1.5 rounded-lg bg-cardbg text-gray-400 hover:text-white">Cancel</button>
-          <button type="button" onclick="saveGoalFromDrawer()" class="px-4 py-1.5 rounded-lg bg-electric text-black font-bold uppercase">Record Goal(s)</button>
-        </div>
-      </div>
-
-      <!-- Timeline of recorded goals -->
-      <div class="space-y-2">
-        <p class="text-[11px] font-mono uppercase text-gray-400 font-bold">Match Goals Summary</p>
-        <div id="modalGoalsTimeline" class="max-h-36 overflow-y-auto space-y-1.5 font-mono text-xs pr-1"></div>
-      </div>
-
-      <div class="pt-2 border-t border-bordercol flex justify-end">
-        <button onclick="closeScoreModal()" class="px-6 py-2.5 bg-white text-black font-bold rounded-xl text-xs uppercase tracking-wider hover:bg-gray-200 transition">
-          Done & Broadcast
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MOBILE BOTTOM BAR -->
-  <footer class="md:hidden sticky bottom-0 bg-obsidian/95 backdrop-blur-lg border-t border-bordercol py-2 px-3 flex justify-around text-[10px] text-gray-400 z-30 font-medium">
-    <button onclick="navigate('home')" class="flex flex-col items-center"><span class="text-base">🏠</span>Home</button>
-    <button onclick="navigate('fixtures')" class="flex flex-col items-center"><span class="text-base">📅</span>Fixtures</button>
-    <button onclick="navigate('standings')" class="flex flex-col items-center"><span class="text-base">🏆</span>Points</button>
-    <button onclick="navigate('scorers')" class="flex flex-col items-center"><span class="text-base">👑</span>Boot</button>
-    <button onclick="navigate('teams')" class="flex flex-col items-center"><span class="text-base">👥</span>Squads</button>
-  </footer>
-
   <script>
-    // OFFICIAL REGISTERED SQUADS (Mann in Team Ram, Chirag in Team Shaurya G)
-    const OFFICIAL_TEAMS = [
-      // Pool A
-      { id: 'T_AKH', name: 'Team Akhand', pool: 'Pool A', captain: 'Akhand', code: 'AKH', color: '#00F5A0', players: ['Akhand', 'Anirudh Yadav', 'Mudit', 'Shashwat', 'Rudransh'] },
-      { id: 'T_RAM', name: 'Team Ram', pool: 'Pool A', captain: 'Ram', code: 'RAM', color: '#A0A0A0', players: ['Ram', 'Mann', 'Anadh', 'Arav Kansal'] },
-      { id: 'T_SHB', name: 'Team Shaurya B', pool: 'Pool A', captain: 'Shaurya Baranwal', code: 'SHB', color: '#FFB800', players: ['Shaurya Baranwal', 'Anant', 'Pushpendra', 'Kaveesh'] },
-      { id: 'T_SHG', name: 'Team Shaurya G', pool: 'Pool A', captain: 'Shaurya Goel', code: 'SHG', color: '#00D9F5', players: ['Shaurya Goel', 'Om', 'Chirag', 'Aishwarya'] },
-      { id: 'T_AWA', name: 'Team Awadh', pool: 'Pool A', captain: 'Awadh', code: 'AWD', color: '#A855F7', players: ['Awadh', 'Prithive', 'Vansh', 'Rudra'] },
-
-      // Pool B
-      { id: 'T_SAK', name: 'Team Saksham', pool: 'Pool B', captain: 'Saksham', code: 'SAK', color: '#FF2E5B', players: ['Saksham', 'Prraham', 'Krish', 'Kamal'] },
-      { id: 'T_PRA', name: 'Team Pranav', pool: 'Pool B', captain: 'Pranav', code: 'PRN', color: '#38BDF8', players: ['Pranav', 'Idaant', 'Advik', 'Ariket', 'Yashovardhan'] },
-      { id: 'T_SAY', name: 'Team Sayush', pool: 'Pool B', captain: 'Sayush', code: 'SAY', color: '#FB923C', players: ['Sayush', 'Dev', 'Risik', 'Vivan'] },
-      { id: 'T_PAA', name: 'Team Paarth', pool: 'Pool B', captain: 'Paarth', code: 'PAR', color: '#34D399', players: ['Paarth', 'Ronit', 'Anirudh P Singh', 'Rajveer'] },
-      { id: 'T_PAT', name: 'Team Pathak / Pranit', pool: 'Pool B', captain: 'Pranit / Pathak', code: 'PAT', color: '#F472B6', players: ['Pranit / Pathak', 'Ishaan Gupta', 'Ishaan Chitransh', 'Divya Raj'] }
+    const TEAMS_DATA = [
+      { id: 'T_AKH', name: 'Team Akhand', pool: 'Pool A', captain: 'Akhand', players: ['Akhand', 'Anirudh Yadav', 'Mudit', 'Shashwat', 'Rudransh'] },
+      { id: 'T_RAM', name: 'Team Ram', pool: 'Pool A', captain: 'Ram', players: ['Ram', 'Mann', 'Anadh', 'Arav Kansal'] },
+      { id: 'T_SHB', name: 'Team Shaurya B', pool: 'Pool A', captain: 'Shaurya Baranwal', players: ['Shaurya Baranwal', 'Anant', 'Pushpendra', 'Kaveesh'] },
+      { id: 'T_SHG', name: 'Team Shaurya G', pool: 'Pool A', captain: 'Shaurya Goel', players: ['Shaurya Goel', 'Om', 'Chirag', 'Aishwarya'] },
+      { id: 'T_AWA', name: 'Team Awadh', pool: 'Pool A', captain: 'Awadh', players: ['Awadh', 'Prithive', 'Vansh', 'Rudra'] },
+      { id: 'T_SAK', name: 'Team Saksham', pool: 'Pool B', captain: 'Saksham', players: ['Saksham', 'Prraham', 'Krish', 'Kamal'] },
+      { id: 'T_PRA', name: 'Team Pranav', pool: 'Pool B', captain: 'Pranav', players: ['Pranav', 'Idaant', 'Advik', 'Ariket', 'Yashovardhan'] },
+      { id: 'T_SAY', name: 'Team Sayush', pool: 'Pool B', captain: 'Sayush', players: ['Sayush', 'Dev', 'Risik', 'Vivan'] },
+      { id: 'T_PAA', name: 'Team Paarth', pool: 'Pool B', captain: 'Paarth', players: ['Paarth', 'Ronit', 'Anirudh P Singh', 'Rajveer'] },
+      { id: 'T_PAT', name: 'Team Pathak / Pranit', pool: 'Pool B', captain: 'Pranit / Pathak', players: ['Pranit / Pathak', 'Ishaan Gupta', 'Ishaan Chitransh', 'Divya Raj'] }
     ];
 
-    // PERMANENT BASELINE FIXTURES (DAY 1 MATCH RESULTS & INDIVIDUAL GOAL SCORERS PRE-POPULATED)
-    const BASELINE_FIXTURES = [
-      // 5th October (COMPLETED DAY 1 RESULTS DIRECTLY PRE-SAVED)
-      { 
-        id: 'M01', date: '5th October', pool: 'Pool A', homeId: 'T_AKH', awayId: 'T_SHB', homeScore: 5, awayScore: 5, status: 'FULL TIME', 
-        goals: [
-          { player: 'Anirudh Yadav', count: 4, teamId: 'T_AKH', teamName: 'Team Akhand' },
-          { player: 'Akhand', count: 1, teamId: 'T_AKH', teamName: 'Team Akhand' },
-          { player: 'Kaveesh', count: 5, teamId: 'T_SHB', teamName: 'Team Shaurya B' }
-        ] 
-      },
-      { 
-        id: 'M02', date: '5th October', pool: 'Pool A', homeId: 'T_SHG', awayId: 'T_AWA', homeScore: 4, awayScore: 12, status: 'FULL TIME', 
-        goals: [
-          { player: 'Chirag', count: 2, teamId: 'T_SHG', teamName: 'Team Shaurya G' },
-          { player: 'Om', count: 1, teamId: 'T_SHG', teamName: 'Team Shaurya G' },
-          { player: 'Shaurya Goel', count: 1, teamId: 'T_SHG', teamName: 'Team Shaurya G' },
-          { player: 'Awadh', count: 10, teamId: 'T_AWA', teamName: 'Team Awadh' },
-          { player: 'Vansh', count: 2, teamId: 'T_AWA', teamName: 'Team Awadh' }
-        ] 
-      },
-      { 
-        id: 'M03', date: '5th October', pool: 'Pool B', homeId: 'T_PAT', awayId: 'T_SAK', homeScore: 9, awayScore: 7, status: 'FULL TIME', 
-        goals: [
-          { player: 'Ishaan Gupta', count: 6, teamId: 'T_PAT', teamName: 'Team Pathak / Pranit' },
-          { player: 'Pranit / Pathak', count: 3, teamId: 'T_PAT', teamName: 'Team Pathak / Pranit' },
-          { player: 'Kamal', count: 4, teamId: 'T_SAK', teamName: 'Team Saksham' },
-          { player: 'Saksham', count: 2, teamId: 'T_SAK', teamName: 'Team Saksham' },
-          { player: 'Prraham', count: 1, teamId: 'T_SAK', teamName: 'Team Saksham' }
-        ] 
-      },
-      { 
-        id: 'M04', date: '5th October', pool: 'Pool B', homeId: 'T_PRA', awayId: 'T_SAY', homeScore: 13, awayScore: 3, status: 'FULL TIME', 
-        goals: [
-          { player: 'Advik', count: 11, teamId: 'T_PRA', teamName: 'Team Pranav' },
-          { player: 'Ariket', count: 2, teamId: 'T_PRA', teamName: 'Team Pranav' },
-          { player: 'Vivan', count: 2, teamId: 'T_SAY', teamName: 'Team Sayush' },
-          { player: 'Sayush', count: 1, teamId: 'T_SAY', teamName: 'Team Sayush' }
-        ] 
-      },
-
-      // 6th October
-      { id: 'M05', date: '6th October', pool: 'Pool A', homeId: 'T_SHG', awayId: 'T_SHB', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-      { id: 'M06', date: '6th October', pool: 'Pool A', homeId: 'T_AWA', awayId: 'T_RAM', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-      { id: 'M07', date: '6th October', pool: 'Pool B', homeId: 'T_SAK', awayId: 'T_PRA', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-
-      // 7th October
-      { id: 'M08', date: '7th October', pool: 'Pool A', homeId: 'T_RAM', awayId: 'T_AWA', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-      { id: 'M09', date: '7th October', pool: 'Pool B', homeId: 'T_PAA', awayId: 'T_SAY', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-      { id: 'M10', date: '7th October', pool: 'Pool B', homeId: 'T_SAK', awayId: 'T_PRA', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-
-      // 8th October
-      { id: 'M11', date: '8th October', pool: 'Pool A', homeId: 'T_RAM', awayId: 'T_SHB', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-      { id: 'M12', date: '8th October', pool: 'Pool A', homeId: 'T_SHB', awayId: 'T_AWA', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-      { id: 'M13', date: '8th October', pool: 'Pool B', homeId: 'T_SAK', awayId: 'T_SAY', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-
-      // 9th October
-      { id: 'M14', date: '9th October', pool: 'Pool A', homeId: 'T_SHG', awayId: 'T_RAM', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-      { id: 'M15', date: '9th October', pool: 'Pool B', homeId: 'T_PRA', awayId: 'T_PAA', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-
-      // 10th October: REST DAY
-
-      // 11th October
-      { id: 'M16', date: '11th October', pool: 'Pool A', homeId: 'T_AKH', awayId: 'T_AWA', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-      { id: 'M17', date: '11th October', pool: 'Pool A', homeId: 'T_AKH', awayId: 'T_RAM', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-      { id: 'M18', date: '11th October', pool: 'Pool B', homeId: 'T_PAT', awayId: 'T_SAY', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-      { id: 'M19', date: '11th October', pool: 'Pool B', homeId: 'T_PAT', awayId: 'T_PAA', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-
-      // 12th October
-      { id: 'M20', date: '12th October', pool: 'Pool A', homeId: 'T_AKH', awayId: 'T_SHG', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-      { id: 'M21', date: '12th October', pool: 'Pool B', homeId: 'T_PAT', awayId: 'T_PRA', homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-
-      // 13th October: Semi Finals
-      { id: 'SF1', date: '13th October', pool: 'Knockout', round: 'Semi Final 1', homeId: 'Winner Pool A', awayId: 'Runner Up Pool B', isKnockout: true, homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-      { id: 'SF2', date: '13th October', pool: 'Knockout', round: 'Semi Final 2', homeId: 'Winner Pool B', awayId: 'Runner Up Pool A', isKnockout: true, homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] },
-
-      // 14th October: Grand Final
-      { id: 'FIN', date: '14th October', pool: 'Knockout', round: 'Grand Final', homeId: 'Winner Semi-Final 1', awayId: 'Winner Semi-Final 2', isKnockout: true, homeScore: 0, awayScore: 0, status: 'SCHEDULED', goals: [] }
+    const INITIAL_FIXTURES = [
+      { id: "M01", date: "5th October", pool: "Pool A", homeId: "T_AKH", awayId: "T_SHB", homeScore: 5, awayScore: 5, status: "FULL TIME", goals: [{ player: "Anirudh Yadav", count: 5, teamId: "T_AKH" }, { player: "Kaveesh", count: 5, teamId: "T_SHB" }] },
+      { id: "M02", date: "5th October", pool: "Pool A", homeId: "T_SHG", awayId: "T_AWA", homeScore: 4, awayScore: 12, status: "FULL TIME", goals: [{ player: "Chirag", count: 2, teamId: "T_SHG" }, { player: "Om", count: 1, teamId: "T_SHG" }, { player: "Shaurya Goel", count: 1, teamId: "T_SHG" }, { player: "Awadh", count: 10, teamId: "T_AWA" }, { player: "Vansh", count: 2, teamId: "T_AWA" }] },
+      { id: "M03", date: "5th October", pool: "Pool B", homeId: "T_PAT", awayId: "T_SAK", homeScore: 9, awayScore: 7, status: "FULL TIME", goals: [{ player: "Ishaan Gupta", count: 6, teamId: "T_PAT" }, { player: "Pranit / Pathak", count: 3, teamId: "T_PAT" }, { player: "Kamal", count: 4, teamId: "T_SAK" }, { player: "Saksham", count: 2, teamId: "T_SAK" }, { player: "Prraham", count: 1, teamId: "T_SAK" }] },
+      { id: "M04", date: "5th October", pool: "Pool B", homeId: "T_PRA", awayId: "T_SAY", homeScore: 13, awayScore: 3, status: "FULL TIME", goals: [{ player: "Advik", count: 11, teamId: "T_PRA" }, { player: "Ariket", count: 2, teamId: "T_PRA" }, { player: "Vivan", count: 2, teamId: "T_SAY" }, { player: "Sayush", count: 1, teamId: "T_SAY" }] },
+      { id: "M05", date: "6th October", pool: "Pool A", homeId: "T_SHG", awayId: "T_SHB", homeScore: 2, awayScore: 7, status: "FULL TIME", goals: [{ player: "Kaveesh", count: 6, teamId: "T_SHB" }, { player: "Shaurya Baranwal", count: 1, teamId: "T_SHB" }, { player: "Shaurya Goel", count: 2, teamId: "T_SHG" }] },
+      { id: "M06", date: "6th October", pool: "Pool A", homeId: "T_AWA", awayId: "T_RAM", homeScore: 9, awayScore: 11, status: "FULL TIME", goals: [{ player: "Awadh", count: 6, teamId: "T_AWA" }, { player: "Prithive", count: 1, teamId: "T_AWA" }, { player: "Mann", count: 11, teamId: "T_RAM" }, { player: "Rudra", count: 2, teamId: "T_AWA" }] },
+      { id: "M07", date: "6th October", pool: "Pool B", homeId: "T_SAK", awayId: "T_PRA", homeScore: 12, awayScore: 6, status: "FULL TIME", goals: [{ player: "Krish", count: 8, teamId: "T_SAK" }, { player: "Kamal", count: 3, teamId: "T_SAK" }, { player: "Prraham", count: 1, teamId: "T_SAK" }, { player: "Ariket", count: 2, teamId: "T_PRA" }, { player: "Advik", count: 4, teamId: "T_PRA" }] },
+      { id: "M08", date: "7th October", pool: "Pool A", homeId: "T_RAM", awayId: "T_AWA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M09", date: "7th October", pool: "Pool B", homeId: "T_PAA", awayId: "T_SAY", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M10", date: "7th October", pool: "Pool B", homeId: "T_SAK", awayId: "T_PRA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M11", date: "8th October", pool: "Pool A", homeId: "T_RAM", awayId: "T_SHB", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M12", date: "8th October", pool: "Pool A", homeId: "T_SHB", awayId: "T_AWA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M13", date: "8th October", pool: "Pool B", homeId: "T_SAK", awayId: "T_SAY", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M14", date: "9th October", pool: "Pool A", homeId: "T_SHG", awayId: "T_RAM", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M15", date: "9th October", pool: "Pool B", homeId: "T_PRA", awayId: "T_PAA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M16", date: "11th October", pool: "Pool A", homeId: "T_AKH", awayId: "T_AWA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M17", date: "11th October", pool: "Pool A", homeId: "T_AKH", awayId: "T_RAM", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M18", date: "11th October", pool: "Pool B", homeId: "T_PAT", awayId: "T_SAY", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M19", date: "11th October", pool: "Pool B", homeId: "T_PAT", awayId: "T_PAA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M20", date: "12th October", pool: "Pool A", homeId: "T_AKH", awayId: "T_SHG", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M21", date: "12th October", pool: "Pool B", homeId: "T_PAT", awayId: "T_PRA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "SF1", date: "13th October", pool: "Knockout", round: "Semi Final 1", homeId: "Winner Pool A", awayId: "Runner Up Pool B", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "SF2", date: "13th October", pool: "Knockout", round: "Semi Final 2", homeId: "Winner Pool B", awayId: "Runner Up Pool A", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "FIN", date: "14th October", pool: "Knockout", round: "Grand Final", homeId: "Winner SF1", awayId: "Winner SF2", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] }
     ];
 
-    // PERMANENT STORAGE & CLOUD KEY-VALUE STORE
-    const CLOUD_STORAGE_URL = 'https://kvdb.io/4yKqPsh7kP4F2WvJ7f547c/jpl_tournament_v2';
-    const LOCAL_STORAGE_KEY = 'JPL_TOURNAMENT_STATE_PERMANENT_V2';
-
-    let fixtures = [];
-
-    // Load from local storage or fallback to pre-baked Day 1 baseline
-    try {
-      const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        // Verify Day 1 data is preserved
-        if (parsed && Array.isArray(parsed) && parsed.length > 0 && parsed[0].status === 'FULL TIME') {
-          fixtures = parsed;
-        } else {
-          fixtures = JSON.parse(JSON.stringify(BASELINE_FIXTURES));
-        }
-      } else {
-        fixtures = JSON.parse(JSON.stringify(BASELINE_FIXTURES));
-      }
-    } catch (e) {
-      fixtures = JSON.parse(JSON.stringify(BASELINE_FIXTURES));
-    }
-
-    let isAdmin = sessionStorage.getItem('JPL_ADMIN_AUTH') === 'true';
-    let currentScoreMatch = null;
-    let activeDrawerSide = null;
-    let currentFixtureFilter = 'ALL';
-
-    // BROADCAST CHANNEL FOR CROSS-TAB SYNC
-    const syncChannel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('jpl_tournament_channel') : null;
-    if (syncChannel) {
-      syncChannel.onmessage = (event) => {
-        if (event.data && event.data.type === 'SYNC_TOURNAMENT') {
-          fixtures = event.data.fixtures;
-          renderAll();
-        }
-      };
-    }
-
-    // CLOUD SYNC: Save to Cloud and LocalStorage
-    async function saveState() {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(fixtures));
-      
-      if (syncChannel) {
-        syncChannel.postMessage({ type: 'SYNC_TOURNAMENT', fixtures: fixtures });
-      }
-
-      renderAll();
-
-      // Cloud broadcast
-      try {
-        setCloudSyncStatus('syncing');
-        await fetch(CLOUD_STORAGE_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(fixtures)
-        });
-        setCloudSyncStatus('synced');
-      } catch (err) {
-        setCloudSyncStatus('local');
-      }
-    }
-
-    // CLOUD SYNC: Background Polling for Spectator Devices (Every 15 Seconds)
-    async function fetchFromCloud(silent = false) {
-      try {
-        if (!silent) setCloudSyncStatus('syncing');
-        const res = await fetch(CLOUD_STORAGE_URL + '?t=' + Date.now(), { cache: 'no-store' });
-        if (res.ok) {
-          const cloudData = await res.json();
-          if (Array.isArray(cloudData) && cloudData.length > 0) {
-            // Check if cloud data has more or equal progress
-            fixtures = cloudData;
-            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(fixtures));
-            renderAll();
-            setCloudSyncStatus('synced');
-            return;
-          }
-        }
-      } catch (err) {
-        // Fallback to local
-      }
-      setCloudSyncStatus('synced');
-    }
-
-    function setCloudSyncStatus(status) {
-      const dot = document.getElementById('cloudSyncIndicator');
-      const text = document.getElementById('cloudSyncText');
-      const time = document.getElementById('lastSyncedTime');
-
-      if (!dot || !text) return;
-
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
-      if (status === 'syncing') {
-        dot.className = 'w-2 h-2 rounded-full bg-goldboot animate-ping';
-        text.textContent = 'Syncing Tournament Cloud...';
-      } else if (status === 'synced') {
-        dot.className = 'w-2 h-2 rounded-full bg-electric';
-        text.textContent = 'Live Cloud Sync Active';
-        if (time) time.textContent = `Updated ${timeStr}`;
-      } else {
-        dot.className = 'w-2 h-2 rounded-full bg-neoncyan';
-        text.textContent = 'Connected (Local Backup)';
-      }
-    }
-
-    function forceSyncFromCloud() {
-      fetchFromCloud(false);
-      alert('Cloud synchronization triggered!');
-    }
-
-    // Auto-poll cloud every 15 seconds so spectator phones update live
-    setInterval(() => {
-      fetchFromCloud(true);
-    }, 15000);
-
-    // BACKUP & RESTORE VAULT
-    function exportBackupJSON() {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fixtures, null, 2));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `JPL_Tournament_Backup_${new Date().toISOString().slice(0, 10)}.json`);
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
-    }
-
-    function importBackupJSON(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          const imported = JSON.parse(e.target.result);
-          if (Array.isArray(imported) && imported.length > 0) {
-            fixtures = imported;
-            saveState();
-            alert('Tournament data restored successfully!');
-          } else {
-            alert('Invalid backup file format.');
-          }
-        } catch (err) {
-          alert('Error parsing JSON backup file.');
-        }
-      };
-      reader.readAsText(file);
-    }
-
-    // NAVIGATION
-    function navigate(view) {
-      if (view === 'admin' && !isAdmin) {
-        handleAdminBtnClick();
-        return;
-      }
-      ['home', 'fixtures', 'standings', 'scorers', 'teams', 'admin'].forEach(v => {
-        const el = document.getElementById(`view-${v}`);
-        const tab = document.getElementById(`tab-${v}`);
-        if (el) el.classList.toggle('hidden', v !== view);
-        if (tab) {
-          if (v === view) {
-            tab.classList.add('text-electric', 'font-bold');
-            tab.classList.remove('text-gray-300');
-          } else {
-            tab.classList.remove('text-electric', 'font-bold');
-            tab.classList.add('text-gray-300');
-          }
-        }
-      });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      renderAll();
-    }
-
-    // ADMIN AUTHENTICATION (PASSWORD: LEAF)
-    function handleAdminBtnClick() {
-      if (isAdmin) {
-        navigate('admin');
-      } else {
-        document.getElementById('adminPinModal').classList.remove('hidden');
-        document.getElementById('adminPinInputField').value = '';
-        document.getElementById('adminPinInputField').focus();
-      }
-    }
-
-    function submitAdminPin(e) {
-      e.preventDefault();
-      const val = document.getElementById('adminPinInputField').value.trim();
-      if (val.toUpperCase() === 'LEAF') {
-        isAdmin = true;
-        sessionStorage.setItem('JPL_ADMIN_AUTH', 'true');
-        document.getElementById('adminPinModal').classList.add('hidden');
-        updateAdminNavUI();
-        navigate('admin');
-      } else {
-        alert('Access Denied: Incorrect Administrator Password.');
-      }
-    }
-
-    function logoutAdmin() {
-      isAdmin = false;
-      sessionStorage.removeItem('JPL_ADMIN_AUTH');
-      updateAdminNavUI();
-      navigate('home');
-    }
-
-    function updateAdminNavUI() {
-      const label = document.getElementById('adminNavLabel');
-      const icon = document.getElementById('adminLockIcon');
-      const btn = document.getElementById('adminNavBtn');
-      if (isAdmin) {
-        label.textContent = 'Admin Desk';
-        icon.textContent = '🛡️';
-        btn.className = 'px-3.5 py-1.5 rounded-xl bg-crimson hover:bg-rose-600 text-white text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5 shadow-md shadow-crimson/20';
-      } else {
-        label.textContent = 'Admin Login';
-        icon.textContent = '🔒';
-        btn.className = 'px-3.5 py-1.5 rounded-xl bg-surface border border-bordercol hover:border-crimson text-gray-300 hover:text-white text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5';
-      }
-    }
+    let fixtures = INITIAL_FIXTURES;
 
     function getTeam(id) {
-      return OFFICIAL_TEAMS.find(t => t.id === id) || { id, name: id, captain: '-', code: 'JPL', color: '#888', players: [] };
+      return TEAMS_DATA.find(t => t.id === id) || { name: id, captain: '-' };
     }
 
-    // FIFA LEAGUE STANDINGS ENGINE
-    function calculateStandings(poolName) {
-      const poolTeams = OFFICIAL_TEAMS.filter(t => t.pool === poolName);
-      const records = {};
-
-      poolTeams.forEach(t => {
-        records[t.id] = { team: t, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0 };
-      });
-
+    function computeStandings(pool) {
+      const teams = TEAMS_DATA.filter(t => t.pool === pool);
+      const stats = {};
+      teams.forEach(t => stats[t.id] = { id: t.id, name: t.name, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0 });
       fixtures.forEach(m => {
-        if (m.pool === poolName && (m.status === 'FULL TIME' || m.status === 'LIVE')) {
-          const h = records[m.homeId];
-          const a = records[m.awayId];
-          if (h && a) {
-            const hScore = Number(m.homeScore) || 0;
-            const aScore = Number(m.awayScore) || 0;
+        if (m.pool === pool && m.status === 'FULL TIME' && stats[m.homeId] && stats[m.awayId]) {
+          const h = stats[m.homeId], a = stats[m.awayId];
+          h.p++; a.p++;
+          h.gf += m.homeScore; h.ga += m.awayScore;
+          a.gf += m.awayScore; a.ga += m.homeScore;
+          if (m.homeScore > m.awayScore) { h.w++; h.pts += 3; a.l++; }
+          else if (m.awayScore > m.homeScore) { a.w++; a.pts += 3; h.l++; }
+          else { h.d++; a.d++; h.pts++; a.pts++; }
+        }
+      });
+      return Object.values(stats).map(s => { s.gd = s.gf - s.ga; return s; })
+        .sort((a,b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
+    }
 
-            h.p += 1;
-            a.p += 1;
-            h.gf += hScore;
-            h.ga += aScore;
-            a.gf += aScore;
-            a.ga += hScore;
-
-            if (hScore > aScore) {
-              h.w += 1;
-              h.pts += 3;
-              a.l += 1;
-            } else if (aScore > hScore) {
-              a.w += 1;
-              a.pts += 3;
-              h.l += 1;
-            } else {
-              h.d += 1;
-              a.d += 1;
-              h.pts += 1;
-              a.pts += 1;
-            }
-          }
+    function render() {
+      // Standings
+      ['Pool A', 'Pool B'].forEach((pool) => {
+        const isA = pool === 'Pool A';
+        const st = computeStandings(pool);
+        const homeEl = document.getElementById(isA ? 'home-table-a' : 'home-table-b');
+        const fullEl = document.getElementById(isA ? 'full-table-a' : 'full-table-b');
+        if (homeEl) {
+          homeEl.innerHTML = st.map((t, i) => `
+            <div class="flex justify-between items-center text-sm p-2 rounded bg-surface">
+              <span class="font-bold text-gray-300">0${i+1} ${t.name}</span>
+              <div class="flex gap-4 font-mono">
+                <span class="text-gray-400">P:${t.p}</span>
+                <span class="text-gray-400">GD:${t.gd > 0 ? '+'+t.gd : t.gd}</span>
+                <span class="text-white font-bold">${t.pts} PTS</span>
+              </div>
+            </div>
+          `).join('');
+        }
+        if (fullEl) {
+          fullEl.innerHTML = st.map((t, i) => `
+            <tr class="hover:bg-surface/50 font-mono">
+              <td class="p-3 font-bold">${i+1}</td>
+              <td class="p-3 font-sans font-semibold">${t.name}</td>
+              <td class="p-3 text-center">${t.p}</td>
+              <td class="p-3 text-center">${t.w}</td>
+              <td class="p-3 text-center">${t.d}</td>
+              <td class="p-3 text-center">${t.l}</td>
+              <td class="p-3 text-center">${t.gf}</td>
+              <td class="p-3 text-center">${t.ga}</td>
+              <td class="p-3 text-center text-emerald-400 font-bold">${t.gd > 0 ? '+'+t.gd : t.gd}</td>
+              <td class="p-3 text-center text-amber-400 font-bold">${t.pts}</td>
+            </tr>
+          `).join('');
         }
       });
 
-      return Object.values(records).map(r => {
-        r.gd = r.gf - r.ga;
-        return r;
-      }).sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || a.team.name.localeCompare(b.team.name));
-    }
+      // Fixtures
+      const fixCont = document.getElementById('fixtures-container');
+      if (fixCont) {
+        fixCont.innerHTML = fixtures.map(m => `
+          <div class="bg-cardbg p-4 rounded-xl border border-bordercol flex flex-col md:flex-row justify-between items-center gap-3">
+            <div class="text-xs font-mono text-gray-400">${m.date} • ${m.pool}</div>
+            <div class="flex items-center gap-4 text-center font-display text-xl">
+              <span class="w-36 text-right truncate text-white">${getTeam(m.homeId).name}</span>
+              <span class="bg-surface px-3 py-1 rounded text-2xl font-bold ${m.status === 'FULL TIME' ? 'text-emerald-400' : 'text-gray-500'}">
+                ${m.status === 'FULL TIME' ? m.homeScore + ' - ' + m.awayScore : 'VS'}
+              </span>
+              <span class="w-36 text-left truncate text-white">${getTeam(m.awayId).name}</span>
+            </div>
+            <span class="text-xs font-mono px-2 py-0.5 rounded ${m.status === 'FULL TIME' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-gray-800 text-gray-400'}">${m.status}</span>
+          </div>
+        `).join('');
+      }
 
-    // GOLDEN BOOT ENGINE (Counts individual goals accurately across all matches)
-    function calculateGoldenBoot() {
-      const tally = {};
+      // Golden Boot
+      const scorersMap = {};
       fixtures.forEach(m => {
         (m.goals || []).forEach(g => {
-          if (g && g.player) {
-            const key = g.player.trim().toLowerCase();
-            const count = Number(g.count) || 1;
-            if (!tally[key]) {
-              tally[key] = { player: g.player.trim(), teamName: g.teamName || 'JPL', goals: 0 };
-            }
-            tally[key].goals += count;
-          }
+          scorersMap[g.player] = (scorersMap[g.player] || 0) + g.count;
         });
       });
-
-      return Object.values(tally).sort((a, b) => b.goals - a.goals || a.player.localeCompare(b.player));
-    }
-
-    // RENDERING
-    function renderAll() {
-      renderHero();
-      renderSnapshotStats();
-      renderStandings();
-      renderFixtures();
-      renderGoldenBoot();
-      renderSquads();
-      if (isAdmin) renderAdminDesk();
-    }
-
-    function renderHero() {
-      const container = document.getElementById('heroMatchContainer');
-      const liveMatch = fixtures.find(m => m.status === 'LIVE');
-
-      if (liveMatch) {
-        const home = getTeam(liveMatch.homeId);
-        const away = getTeam(liveMatch.awayId);
-        container.innerHTML = `
-          <div class="flex items-center justify-between pb-3 mb-6 border-b border-bordercol/60">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-crimson text-white live-pulse-badge">
-              <span class="w-2 h-2 rounded-full bg-white"></span> ● MATCH LIVE NOW
-            </span>
-            <span class="text-xs font-mono text-gray-400 font-bold uppercase">${liveMatch.date} • ${liveMatch.pool}</span>
+      const sortedScorers = Object.entries(scorersMap).sort((a,b) => b[1] - a[1]);
+      const scList = document.getElementById('scorers-list');
+      if (scList) {
+        scList.innerHTML = sortedScorers.map(([name, goals], i) => `
+          <div class="bg-cardbg p-3 rounded-xl border border-bordercol flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="font-mono text-sm ${i===0 ? 'text-amber-400 font-bold' : 'text-gray-500'}">#${i+1}</span>
+              <span class="font-bold text-white">${name}</span>
+            </div>
+            <span class="font-mono text-emerald-400 font-bold text-lg">${goals} G</span>
           </div>
-          <div class="grid grid-cols-7 items-center text-center">
-            <div class="col-span-3 flex flex-col items-center">
-              <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-surface border-2 flex items-center justify-center font-display text-3xl font-bold text-white mb-2" style="border-color:${home.color}">
-                ${home.code}
-              </div>
-              <h3 class="font-display text-2xl md:text-3xl text-white tracking-wide">${home.name}</h3>
-              <span class="text-[11px] font-mono text-gray-400 uppercase">Cap: ${home.captain}</span>
-            </div>
-            <div class="col-span-1">
-              <div class="font-display text-6xl md:text-8xl text-white font-bold leading-none tracking-tight">
-                <span class="${liveMatch.homeScore > liveMatch.awayScore ? 'text-electric' : 'text-white'}">${liveMatch.homeScore}</span>
-                <span class="text-gray-600 text-3xl md:text-5xl">—</span>
-                <span class="${liveMatch.awayScore > liveMatch.homeScore ? 'text-electric' : 'text-white'}">${liveMatch.awayScore}</span>
-              </div>
-            </div>
-            <div class="col-span-3 flex flex-col items-center">
-              <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-surface border-2 flex items-center justify-center font-display text-3xl font-bold text-white mb-2" style="border-color:${away.color}">
-                ${away.code}
-              </div>
-              <h3 class="font-display text-2xl md:text-3xl text-white tracking-wide">${away.name}</h3>
-              <span class="text-[11px] font-mono text-gray-400 uppercase">Cap: ${away.captain}</span>
-            </div>
-          </div>
-        `;
-        return;
+        `).join('');
       }
 
-      // Next scheduled match (e.g. 6th October)
-      const nextMatch = fixtures.find(m => m.status === 'SCHEDULED' && !m.isKnockout) || fixtures[0];
-      const home = getTeam(nextMatch.homeId);
-      const away = getTeam(nextMatch.awayId);
-      container.innerHTML = `
-        <div class="flex items-center justify-between pb-3 mb-6 border-b border-bordercol/60">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-electric/15 text-electric border border-electric/30">
-            NEXT UPCOMING FIXTURE
-          </span>
-          <span class="text-xs font-mono text-gray-400 font-bold uppercase">${nextMatch.date} • ${nextMatch.pool}</span>
-        </div>
-        <div class="grid grid-cols-7 items-center text-center">
-          <div class="col-span-3 flex flex-col items-center">
-            <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-surface border-2 flex items-center justify-center font-display text-2xl font-bold text-white mb-2" style="border-color:${home.color}">
-              ${home.code}
+      // Teams / Squads View
+      const tGrid = document.getElementById('teams-grid');
+      if (tGrid) {
+        tGrid.innerHTML = TEAMS_DATA.map(t => `
+          <div class="bg-cardbg p-4 rounded-xl border border-bordercol space-y-2">
+            <div class="flex justify-between items-center border-b border-bordercol pb-2">
+              <h3 class="font-display text-lg text-white">${t.name}</h3>
+              <span class="text-xs font-mono text-emerald-400">${t.pool}</span>
             </div>
-            <h3 class="font-display text-xl md:text-2xl text-white">${home.name}</h3>
-            <span class="text-[11px] font-mono text-gray-400">Cap: ${home.captain}</span>
-          </div>
-          <div class="col-span-1">
-            <span class="font-display text-4xl md:text-5xl text-gray-500 font-bold">VS</span>
-            <p class="text-[11px] font-mono text-electric mt-1 font-bold">${nextMatch.date}</p>
-          </div>
-          <div class="col-span-3 flex flex-col items-center">
-            <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-surface border-2 flex items-center justify-center font-display text-2xl font-bold text-white mb-2" style="border-color:${away.color}">
-              ${away.code}
+            <p class="text-xs text-gray-400">Captain: <span class="text-white font-semibold">${t.captain}</span></p>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              ${t.players.map(p => `<span class="bg-surface text-gray-300 text-[11px] px-2 py-0.5 rounded font-mono">${p}</span>`).join('')}
             </div>
-            <h3 class="font-display text-xl md:text-2xl text-white">${away.name}</h3>
-            <span class="text-[11px] font-mono text-gray-400">Cap: ${away.captain}</span>
           </div>
-        </div>
-      `;
+        `).join('');
+      }
     }
 
-    function renderSnapshotStats() {
-      let completed = 0;
-      let totalGoals = 0;
-      fixtures.forEach(m => {
-        if (m.status === 'FULL TIME') completed++;
-        totalGoals += ((Number(m.homeScore) || 0) + (Number(m.awayScore) || 0));
+    function navigate(view) {
+      ['home', 'fixtures', 'standings', 'scorers', 'teams', 'admin'].forEach(v => {
+        const el = document.getElementById('view-' + v);
+        const tab = document.getElementById('tab-' + v);
+        if (el) el.classList.toggle('hidden', v !== view);
+        if (tab) {
+          tab.classList.toggle('text-emerald-400', v === view);
+          tab.classList.toggle('font-bold', v === view);
+        }
       });
-      document.getElementById('statCompletedMatches').textContent = `${completed} / 21`;
-      document.getElementById('statTotalGoals').textContent = totalGoals;
-
-      const scorers = calculateGoldenBoot();
-      const top = scorers[0];
-      document.getElementById('statGoldenBootLeader').textContent = top ? `${top.player} (${top.goals}G)` : 'TBD (0 Goals)';
+      window.scrollTo(0,0);
     }
 
-    function renderStandings() {
-      const renderTableHTML = (poolName, elementId, isFull = false) => {
-        const list = calculateStandings(poolName);
-        let html = `
-          <table class="w-full text-left font-mono text-xs">
-            <thead>
-              <tr class="text-[10px] text-gray-400 uppercase border-b border-bordercol">
-                <th class="py-2.5 px-2">#</th>
-                <th class="py-2.5 px-3">Team</th>
-                <th class="py-2.5 px-2 text-center">P</th>
-                ${isFull ? `
-                  <th class="py-2.5 px-2 text-center">W</th>
-                  <th class="py-2.5 px-2 text-center">D</th>
-                  <th class="py-2.5 px-2 text-center">L</th>
-                  <th class="py-2.5 px-2 text-center">GF</th>
-                  <th class="py-2.5 px-2 text-center">GA</th>
-                ` : ''}
-                <th class="py-2.5 px-2 text-center">GD</th>
-                <th class="py-2.5 px-3 text-right">PTS</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-bordercol/40">
-        `;
-
-        list.forEach((r, idx) => {
-          const isQualified = idx < 2;
-          html += `
-            <tr class="hover:bg-surface/50 transition ${isQualified ? 'bg-emerald-950/10' : ''}">
-              <td class="py-2.5 px-2 font-bold ${isQualified ? 'text-electric' : 'text-gray-500'}">0${idx + 1}</td>
-              <td class="py-2.5 px-3">
-                <span class="font-bold text-white block truncate">${r.team.name}</span>
-                <span class="text-[10px] text-gray-500">Cap: ${r.team.captain}</span>
-              </td>
-              <td class="py-2.5 px-2 text-center text-gray-300 font-bold">${r.p}</td>
-              ${isFull ? `
-                <td class="py-2.5 px-2 text-center text-gray-300">${r.w}</td>
-                <td class="py-2.5 px-2 text-center text-gray-400">${r.d}</td>
-                <td class="py-2.5 px-2 text-center text-gray-400">${r.l}</td>
-                <td class="py-2.5 px-2 text-center text-gray-300">${r.gf}</td>
-                <td class="py-2.5 px-2 text-center text-gray-400">${r.ga}</td>
-              ` : ''}
-              <td class="py-2.5 px-2 text-center font-bold ${r.gd > 0 ? 'text-electric' : r.gd < 0 ? 'text-rose-400' : 'text-gray-400'}">${r.gd > 0 ? `+${r.gd}` : r.gd}</td>
-              <td class="py-2.5 px-3 text-right font-display text-xl text-white font-bold">${r.pts}</td>
-            </tr>
-          `;
-        });
-
-        html += `</tbody></table>`;
-        const elem = document.getElementById(elementId);
-        if (elem) elem.innerHTML = html;
-      };
-
-      renderTableHTML('Pool A', 'homeTablePoolA', false);
-      renderTableHTML('Pool B', 'homeTablePoolB', false);
-      renderTableHTML('Pool A', 'fullStandingsPoolA', true);
-      renderTableHTML('Pool B', 'fullStandingsPoolB', true);
+    function toggleAdminPrompt() {
+      const p = prompt("Enter Admin Password:");
+      if (p && p.toUpperCase() === 'LEAF') navigate('admin');
+      else if (p) alert("Incorrect password");
     }
 
-    function setFixtureFilter(filter) {
-      currentFixtureFilter = filter;
-      document.querySelectorAll('.fix-filter-btn').forEach(btn => {
-        const match = btn.dataset.filter === filter;
-        btn.className = `fix-filter-btn px-3 py-1.5 rounded-lg border text-xs font-mono font-bold transition ${match ? 'bg-surface border-electric text-white' : 'bg-surface/50 border-bordercol text-gray-400 hover:text-white'}`;
-      });
-      renderFixtures();
-    }
+    function logoutAdmin() { navigate('home'); }
 
-    function renderFixtures() {
-      const container = document.getElementById('fixturesListContainer');
-      if (!container) return;
-
-      let filtered = fixtures;
-      if (currentFixtureFilter !== 'ALL') {
-        filtered = fixtures.filter(m => m.pool === currentFixtureFilter);
-      }
-
-      let html = '';
-      filtered.forEach(m => {
-        const home = getTeam(m.homeId);
-        const away = getTeam(m.awayId);
-        const isLive = m.status === 'LIVE';
-        const isFT = m.status === 'FULL TIME';
-
-        html += `
-          <div class="p-4 rounded-2xl bg-cardbg border ${isLive ? 'border-crimson live-pulse-badge' : 'border-bordercol'} flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-lg">
-            <div class="flex items-center space-x-3 text-xs font-mono">
-              <span class="px-2 py-1 rounded bg-surface border border-bordercol text-white font-bold">${m.date}</span>
-              <span class="text-gray-400 uppercase font-bold">${m.round || m.pool}</span>
-              ${isLive ? '<span class="px-2 py-0.5 rounded bg-crimson text-white text-[10px] font-black uppercase">● LIVE</span>' : ''}
-              ${isFT ? '<span class="px-2 py-0.5 rounded bg-surface text-gray-400 text-[10px] font-bold uppercase">FULL TIME</span>' : ''}
-            </div>
-
-            <!-- Read-only score view for spectators -->
-            <div class="flex items-center justify-between md:justify-center md:space-x-8 font-sans">
-              <div class="flex items-center space-x-2 w-40 justify-end text-right">
-                <span class="font-bold text-white text-sm">${home.name}</span>
-              </div>
-
-              <div class="font-display text-3xl font-bold px-3 py-0.5 rounded-lg bg-surface/80 border border-bordercol min-w-[75px] text-center">
-                ${isLive || isFT ? `<span class="${m.homeScore > m.awayScore ? 'text-electric' : 'text-white'}">${m.homeScore}</span> - <span class="${m.awayScore > m.homeScore ? 'text-electric' : 'text-white'}">${m.awayScore}</span>` : '<span class="text-gray-500 text-xl font-mono">VS</span>'}
-              </div>
-
-              <div class="flex items-center space-x-2 w-40 justify-start">
-                <span class="font-bold text-white text-sm">${away.name}</span>
-              </div>
-            </div>
-
-            <!-- Goal details -->
-            <div class="text-xs font-mono text-gray-400 truncate md:max-w-xs text-right">
-              ${(m.goals && m.goals.length > 0) ? m.goals.map(g => `${g.player}${g.count > 1 ? ` (${g.count})` : ''}`).join(', ') : (isFT ? 'No goals recorded' : 'Scheduled')}
-            </div>
-          </div>
-        `;
-      });
-
-      if (currentFixtureFilter === 'ALL') {
-        html = html.replace('11th October', `
-          <div class="p-3 rounded-2xl bg-surface/60 border border-bordercol text-center font-mono text-xs text-gray-400 font-bold uppercase tracking-wider my-2">
-            🛑 10th October — Official Tournament Rest Day
-          </div>
-          11th October
-        `);
-      }
-
-      container.innerHTML = html;
-    }
-
-    function renderGoldenBoot() {
-      const list = calculateGoldenBoot();
-      const spotlight = document.getElementById('goldenBootLeaderSpotlight');
-      const grid = document.getElementById('goldenBootListContainer');
-
-      if (!spotlight || !grid) return;
-
-      if (list.length === 0) {
-        spotlight.innerHTML = `
-          <div class="p-8 rounded-3xl bg-cardbg border border-bordercol text-center space-y-2">
-            <span class="text-3xl">⚽</span>
-            <h3 class="font-display text-2xl text-white">RACE FOR THE GOLDEN BOOT</h3>
-            <p class="text-xs font-mono text-gray-400">Goals scored during matches automatically update this leaderboard in real time.</p>
-          </div>
-        `;
-        grid.innerHTML = '';
-        return;
-      }
-
-      const leader = list[0];
-      spotlight.innerHTML = `
-        <div class="p-6 md:p-8 rounded-3xl bg-gradient-to-r from-cardbg via-[#1c180e] to-cardbg border-2 border-goldboot gold-glow flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
-          <div class="flex items-center space-x-6">
-            <div class="w-20 h-20 rounded-2xl bg-goldboot/20 border-2 border-goldboot text-goldboot flex items-center justify-center font-display text-5xl font-bold">
-              #1
-            </div>
-            <div>
-              <span class="px-2.5 py-0.5 rounded bg-goldboot/20 text-goldboot text-[10px] font-mono font-bold uppercase">Current Tournament Leader</span>
-              <h3 class="font-display text-4xl md:text-5xl text-white tracking-wide uppercase mt-1">${leader.player}</h3>
-              <p class="text-xs font-mono text-gray-300">Squad: <strong class="text-white">${leader.teamName}</strong></p>
-            </div>
-          </div>
-          <div class="text-center md:text-right">
-            <span class="font-display text-7xl text-goldboot font-bold leading-none">${leader.goals}</span>
-            <p class="text-xs font-mono text-gray-400 uppercase font-semibold">Total Goals</p>
-          </div>
-        </div>
-      `;
-
-      grid.innerHTML = list.map((item, idx) => `
-        <div class="p-4 rounded-2xl bg-cardbg border border-bordercol flex items-center justify-between">
-          <div class="flex items-center space-x-4">
-            <span class="font-display text-2xl font-bold ${idx === 0 ? 'text-goldboot' : 'text-gray-500'}">0${idx + 1}</span>
-            <div>
-              <h4 class="font-bold text-white text-sm">${item.player}</h4>
-              <p class="text-[10px] font-mono text-gray-400">${item.teamName}</p>
-            </div>
-          </div>
-          <div class="text-right">
-            <span class="font-display text-3xl font-bold text-electric">${item.goals}</span>
-            <span class="text-[9px] font-mono text-gray-400 block -mt-1 font-bold">GOALS</span>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function renderSquads() {
-      const container = document.getElementById('squadsRosterContainer');
-      if (!container) return;
-
-      container.innerHTML = OFFICIAL_TEAMS.map(team => `
-        <div class="p-6 rounded-3xl bg-cardbg border border-bordercol space-y-4 shadow-xl">
-          <div class="flex items-center justify-between pb-3 border-b border-bordercol">
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full" style="background-color:${team.color}"></span>
-                <h3 class="font-display text-3xl text-white">${team.name}</h3>
-              </div>
-              <span class="text-xs font-mono text-gray-400 uppercase">Captain: <strong class="text-white">${team.captain}</strong> • ${team.pool}</span>
-            </div>
-            <span class="font-display text-2xl text-gray-600 font-bold">${team.code}</span>
-          </div>
-
-          <div>
-            <p class="text-[10px] font-mono text-gray-400 uppercase font-bold mb-2">Registered Player Roster (${team.players.length})</p>
-            <div class="grid grid-cols-2 gap-2 font-mono text-xs">
-              ${team.players.map(p => `
-                <div class="p-2 rounded-xl bg-surface border border-bordercol/80 flex items-center justify-between">
-                  <span class="text-gray-200 truncate">${p}</span>
-                  ${p.toLowerCase().includes(team.captain.toLowerCase()) ? '<span class="text-[9px] text-electric font-bold">CAP</span>' : ''}
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function renderAdminDesk() {
-      const container = document.getElementById('adminMatchesList');
-      if (!container) return;
-
-      container.innerHTML = fixtures.map(m => {
-        const home = getTeam(m.homeId);
-        const away = getTeam(m.awayId);
-        const isLive = m.status === 'LIVE';
-
-        return `
-          <div class="p-4 rounded-2xl bg-cardbg border ${isLive ? 'border-crimson' : 'border-bordercol'} flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center space-x-3 text-xs font-mono w-full sm:w-auto">
-              <span class="px-2 py-1 rounded bg-surface border border-bordercol text-white font-bold">${m.date}</span>
-              <span class="text-gray-400 uppercase">${m.pool}</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${isLive ? 'bg-crimson text-white' : 'bg-surface text-gray-300'}">${m.status}</span>
-            </div>
-
-            <div class="flex items-center space-x-4 font-display text-2xl text-white">
-              <span class="w-32 text-right truncate">${home.name}</span>
-              <span class="text-electric text-3xl font-bold">${m.homeScore} — ${m.awayScore}</span>
-              <span class="w-32 text-left truncate">${away.name}</span>
-            </div>
-
-            <button onclick="openScoreModal('${m.id}')" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-electric hover:bg-emerald-400 text-black font-bold text-xs font-mono uppercase tracking-wider transition">
-              Score & Goals Desk
-            </button>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function openScoreModal(matchId) {
-      currentScoreMatch = fixtures.find(m => m.id === matchId);
-      if (!currentScoreMatch) return;
-
-      const m = currentScoreMatch;
-      const home = getTeam(m.homeId);
-      const away = getTeam(m.awayId);
-
-      document.getElementById('modalMatchDate').textContent = `${m.date} • ${m.pool}`;
-      document.getElementById('modalTeamAName').textContent = home.name;
-      document.getElementById('modalTeamBName').textContent = away.name;
-      document.getElementById('modalTeamAScore').textContent = m.homeScore;
-      document.getElementById('modalTeamBScore').textContent = m.awayScore;
-
-      updateStatusButtonStyles(m.status);
-      renderModalGoalsTimeline();
-      closeGoalDrawer();
-
-      document.getElementById('adminScoreModal').classList.remove('hidden');
-    }
-
-    function closeScoreModal() {
-      document.getElementById('adminScoreModal').classList.add('hidden');
-      saveState();
-    }
-
-    function updateCurrentMatchStatus(status) {
-      if (!currentScoreMatch) return;
-      currentScoreMatch.status = status;
-      updateStatusButtonStyles(status);
-      saveState();
-    }
-
-    function updateStatusButtonStyles(status) {
-      ['Scheduled', 'Live', 'FT'].forEach(s => {
-        const btn = document.getElementById(`btnStatus${s}`);
-        if (btn) btn.className = 'py-2 rounded-xl bg-cardbg border border-bordercol text-gray-400 font-bold';
-      });
-
-      if (status === 'SCHEDULED') {
-        document.getElementById('btnStatusScheduled').className = 'py-2 rounded-xl bg-surface border border-gray-400 text-white font-bold';
-      } else if (status === 'LIVE') {
-        document.getElementById('btnStatusLive').className = 'py-2 rounded-xl bg-crimson text-white font-bold';
-      } else if (status === 'FULL TIME') {
-        document.getElementById('btnStatusFT').className = 'py-2 rounded-xl bg-electric text-black font-bold';
-      }
-    }
-
-    function openGoalDrawer(side) {
-      activeDrawerSide = side;
-      const m = currentScoreMatch;
-      const team = side === 'A' ? getTeam(m.homeId) : getTeam(m.awayId);
-
-      document.getElementById('goalDrawerHeading').textContent = `Add Goal(s) for ${team.name}`;
-      const select = document.getElementById('goalPlayerSelect');
-
-      select.innerHTML = team.players.map(p => `<option value="${p}">${p}</option>`).join('');
-      document.getElementById('goalCountInput').value = '1';
-      document.getElementById('addGoalDrawer').classList.remove('hidden');
-    }
-
-    function closeGoalDrawer() {
-      document.getElementById('addGoalDrawer').classList.add('hidden');
-    }
-
-    function saveGoalFromDrawer() {
-      const m = currentScoreMatch;
-      if (!m) return;
-
-      const select = document.getElementById('goalPlayerSelect');
-      const countInput = document.getElementById('goalCountInput');
-      const playerName = select.value;
-      const count = Math.max(1, parseInt(countInput.value) || 1);
-
-      const side = activeDrawerSide;
-      const team = side === 'A' ? getTeam(m.homeId) : getTeam(m.awayId);
-
-      if (side === 'A') {
-        m.homeScore = (Number(m.homeScore) || 0) + count;
-        document.getElementById('modalTeamAScore').textContent = m.homeScore;
-      } else {
-        m.awayScore = (Number(m.awayScore) || 0) + count;
-        document.getElementById('modalTeamBScore').textContent = m.awayScore;
-      }
-
-      if (!m.goals) m.goals = [];
-      const existing = m.goals.find(g => g.player === playerName && g.teamId === team.id);
-      if (existing) {
-        existing.count = (Number(existing.count) || 1) + count;
-      } else {
-        m.goals.push({
-          player: playerName,
-          count: count,
-          teamId: team.id,
-          teamName: team.name
-        });
-      }
-
-      closeGoalDrawer();
-      renderModalGoalsTimeline();
-      saveState();
-    }
-
-    function deleteGoal(index) {
-      const m = currentScoreMatch;
-      if (!m || !m.goals || !m.goals[index]) return;
-
-      const g = m.goals[index];
-      const home = getTeam(m.homeId);
-      const count = Number(g.count) || 1;
-
-      if (g.teamId === home.id) {
-        m.homeScore = Math.max(0, (Number(m.homeScore) || 0) - count);
-        document.getElementById('modalTeamAScore').textContent = m.homeScore;
-      } else {
-        m.awayScore = Math.max(0, (Number(m.awayScore) || 0) - count);
-        document.getElementById('modalTeamBScore').textContent = m.awayScore;
-      }
-
-      m.goals.splice(index, 1);
-      renderModalGoalsTimeline();
-      saveState();
-    }
-
-    function renderModalGoalsTimeline() {
-      const container = document.getElementById('modalGoalsTimeline');
-      const m = currentScoreMatch;
-      if (!container || !m) return;
-
-      if (!m.goals || m.goals.length === 0) {
-        container.innerHTML = '<p class="text-gray-500 py-1">No goals recorded yet.</p>';
-        return;
-      }
-
-      container.innerHTML = m.goals.map((g, idx) => `
-        <div class="flex items-center justify-between p-2 rounded-xl bg-surface border border-bordercol">
-          <span>⚽ <strong>${g.player}</strong> (${g.teamName}) — <strong>${g.count || 1} Goal(s)</strong></span>
-          <button onclick="deleteGoal(${idx})" class="text-rose-400 hover:text-white px-2 py-0.5 rounded bg-cardbg text-[10px]">Remove</button>
-        </div>
-      `).join('');
-    }
-
-    // INITIALIZATION
-    window.addEventListener('DOMContentLoaded', () => {
-      updateAdminNavUI();
-      navigate('home');
-      fetchFromCloud(true);
-    });
+    render();
   </script>
 </body>
 </html>
