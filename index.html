@@ -31,7 +31,7 @@
 
     .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
 
     .match-row { background-color: #0C1017; border: 1px solid #1A2230; border-radius: 14px; padding: 14px 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
     .score-badge { background-color: #12161F; padding: 4px 14px; border-radius: 8px; font-weight: 700; font-size: 24px; color: #00F5A0; }
@@ -40,7 +40,6 @@
     th { background-color: #12161F; color: #94A3B8; font-size: 11px; padding: 12px; text-transform: uppercase; }
     td { padding: 12px; border-bottom: 1px solid #161D2A; font-size: 13px; }
 
-    /* MODAL */
     .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; }
     .modal-box { background: #0C1017; border: 1px solid #1E2638; max-width: 480px; width: 100%; border-radius: 28px; padding: 26px; max-height: 92vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
     .goal-panel { background-color: #0A1017; border: 1px solid rgba(0, 245, 160, 0.4); border-radius: 16px; padding: 16px; margin: 16px 0; }
@@ -87,22 +86,22 @@
       <div class="hero-card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
           <span class="badge-pill font-mono">NEXT UPCOMING FIXTURE</span>
-          <span class="font-mono" style="font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em;">7TH OCTOBER • POOL B</span>
+          <span class="font-mono" style="font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em;">8TH OCTOBER • POOL A</span>
         </div>
         <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; text-align: center;">
           <div>
-            <div class="team-box font-display" style="color: #FFB800;">PAA</div>
-            <h3 class="font-display" style="font-size: 22px; color: #fff;">Team Paarth</h3>
-            <p class="font-mono" style="font-size: 11px; color: #64748B;">Cap: Paarth</p>
+            <div class="team-box font-display">RAM</div>
+            <h3 class="font-display" style="font-size: 22px; color: #fff;">Team Ram</h3>
+            <p class="font-mono" style="font-size: 11px; color: #64748B;">Cap: Ram</p>
           </div>
           <div>
             <div class="font-display" style="font-size: 48px; font-weight: 900; color: #334155; line-height: 1;">VS</div>
-            <span class="font-mono" style="font-size: 12px; color: #00F5A0;">7th October</span>
+            <span class="font-mono" style="font-size: 12px; color: #00F5A0;">8th October</span>
           </div>
           <div>
-            <div class="team-box font-display" style="color: #A855F7;">SAY</div>
-            <h3 class="font-display" style="font-size: 22px; color: #fff;">Team Sayush</h3>
-            <p class="font-mono" style="font-size: 11px; color: #64748B;">Cap: Sayush</p>
+            <div class="team-box font-display" style="color: #FFB800;">SHB</div>
+            <h3 class="font-display" style="font-size: 22px; color: #fff;">Team Shourya B</h3>
+            <p class="font-mono" style="font-size: 11px; color: #64748B;">Cap: Shourya Baranwal</p>
           </div>
         </div>
       </div>
@@ -111,11 +110,11 @@
       <div class="grid-4">
         <div class="card">
           <p class="font-mono" style="font-size: 11px; color: #64748B; text-transform: uppercase; letter-spacing: 0.05em;">Matches Completed</p>
-          <p id="stat-matches" class="font-display" style="font-size: 36px; color: #fff; margin-top: 4px;">7 / 19</p>
+          <p id="stat-matches" class="font-display" style="font-size: 36px; color: #fff; margin-top: 4px;">10 / 20</p>
         </div>
         <div class="card">
           <p class="font-mono" style="font-size: 11px; color: #64748B; text-transform: uppercase; letter-spacing: 0.05em;">Total Goals</p>
-          <p id="stat-goals" class="font-display" style="font-size: 36px; color: #00F5A0; margin-top: 4px;">105</p>
+          <p id="stat-goals" class="font-display" style="font-size: 36px; color: #00F5A0; margin-top: 4px;">159</p>
         </div>
         <div class="card">
           <p class="font-mono" style="font-size: 11px; color: #64748B; text-transform: uppercase; letter-spacing: 0.05em;">Registered Players</p>
@@ -123,7 +122,7 @@
         </div>
         <div class="card">
           <p class="font-mono" style="font-size: 11px; color: #64748B; text-transform: uppercase; letter-spacing: 0.05em;">👑 Top Goal Scorer</p>
-          <p id="stat-leader" class="font-display" style="font-size: 28px; color: #FFB800; margin-top: 4px;">Awadh (16G)</p>
+          <p id="stat-leader" class="font-display" style="font-size: 28px; color: #FFB800; margin-top: 4px;">Ronit (21G)</p>
         </div>
       </div>
 
@@ -207,12 +206,12 @@
           </div>
           <div>
             <span class="font-mono" style="font-size: 10px; color: #FFB800; background: rgba(255, 184, 0, 0.1); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(255, 184, 0, 0.2);">CURRENT TOURNAMENT LEADER</span>
-            <h3 id="spotlight-name" class="font-display" style="font-size: 36px; color: #fff; margin-top: 4px; line-height: 1;">AWADH</h3>
-            <p class="font-mono" style="font-size: 11px; color: #64748B;">Squad: Team Awadh</p>
+            <h3 id="spotlight-name" class="font-display" style="font-size: 36px; color: #fff; margin-top: 4px; line-height: 1;">RONIT</h3>
+            <p class="font-mono" style="font-size: 11px; color: #64748B;">Squad: Team Paarth</p>
           </div>
         </div>
         <div style="text-align: right;">
-          <div id="spotlight-goals" class="font-display" style="font-size: 54px; font-weight: 900; color: #FFB800; line-height: 1;">16</div>
+          <div id="spotlight-goals" class="font-display" style="font-size: 54px; font-weight: 900; color: #FFB800; line-height: 1;">21</div>
           <p class="font-mono" style="font-size: 10px; color: #64748B;">TOTAL GOALS</p>
         </div>
       </div>
@@ -323,7 +322,7 @@
       { id: 'T_PAT', name: 'Team Pranit', pool: 'Pool B', captain: 'Pranit / Pathak', code: 'PAT', dotColor: '#00F5A0', players: ['Pranit / Pathak', 'Ishaan Gupta', 'Ishaan Chitransh', 'Divya Raj'] }
     ];
 
-    // EXACT SCHEDULE DERIVED FROM OFFICIAL MATRIX IMAGE
+    // MATCH DATA WITH DAY 1, DAY 2, DAY 3, AND PRE-SCHEDULED MATCHES BAKED IN
     const BASE_FIXTURES = [
       // 5th October
       { id: "M01", date: "5th October", pool: "Pool A", homeId: "T_AKH", awayId: "T_SHB", homeScore: 5, awayScore: 5, status: "FULL TIME", goals: [{ player: "Anirudh Yadav", count: 5, teamId: "T_AKH", teamName: "Team Akhand" }, { player: "Kaveesh", count: 5, teamId: "T_SHB", teamName: "Team Shourya B" }] },
@@ -336,13 +335,13 @@
       { id: "M06", date: "6th October", pool: "Pool A", homeId: "T_AWA", awayId: "T_RAM", homeScore: 9, awayScore: 11, status: "FULL TIME", goals: [{ player: "Awadh", count: 6, teamId: "T_AWA", teamName: "Team Awadh" }, { player: "Prithive", count: 1, teamId: "T_AWA", teamName: "Team Awadh" }, { player: "Mann", count: 11, teamId: "T_RAM", teamName: "Team Ram" }, { player: "Rudra", count: 2, teamId: "T_AWA", teamName: "Team Awadh" }] },
       { id: "M07", date: "6th October", pool: "Pool B", homeId: "T_SAK", awayId: "T_PRA", homeScore: 12, awayScore: 6, status: "FULL TIME", goals: [{ player: "Krish", count: 8, teamId: "T_SAK", teamName: "Team Saksham" }, { player: "Kamal", count: 3, teamId: "T_SAK", teamName: "Team Saksham" }, { player: "Prraham", count: 1, teamId: "T_SAK", teamName: "Team Saksham" }, { player: "Ariket", count: 2, teamId: "T_PRA", teamName: "Team Pranav" }, { player: "Advik", count: 4, teamId: "T_PRA", teamName: "Team Pranav" }] },
 
-      // 7th October
-      { id: "M08", date: "7th October", pool: "Pool B", homeId: "T_PAA", awayId: "T_SAY", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
-      { id: "M09", date: "7th October", pool: "Pool B", homeId: "T_SAK", awayId: "T_PAA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      // 7th October (Day 3 Results)
+      { id: "M08", date: "7th October", pool: "Pool B", homeId: "T_PAA", awayId: "T_SAY", homeScore: 19, awayScore: 8, status: "FULL TIME", goals: [{ player: "Ronit", count: 13, teamId: "T_PAA", teamName: "Team Paarth" }, { player: "Anirudh P Singh", count: 6, teamId: "T_PAA", teamName: "Team Paarth" }, { player: "Vivan", count: 6, teamId: "T_SAY", teamName: "Team Sayush" }, { player: "Dev", count: 1, teamId: "T_SAY", teamName: "Team Sayush" }, { player: "Risik", count: 1, teamId: "T_SAY", teamName: "Team Sayush" }] },
+      { id: "M09", date: "7th October", pool: "Pool B", homeId: "T_SAK", awayId: "T_PAA", homeScore: 8, awayScore: 11, status: "FULL TIME", goals: [{ player: "Ronit", count: 8, teamId: "T_PAA", teamName: "Team Paarth" }, { player: "Anirudh P Singh", count: 3, teamId: "T_PAA", teamName: "Team Paarth" }, { player: "Kamal", count: 4, teamId: "T_SAK", teamName: "Team Saksham" }, { player: "Krish", count: 3, teamId: "T_SAK", teamName: "Team Saksham" }, { player: "Prraham", count: 1, teamId: "T_SAK", teamName: "Team Saksham" }] },
 
       // 8th October
       { id: "M10", date: "8th October", pool: "Pool A", homeId: "T_RAM", awayId: "T_SHB", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
-      { id: "M11", date: "8th October", pool: "Pool A", homeId: "T_SHB", awayId: "T_AWA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
+      { id: "M11", date: "8th October", pool: "Pool A", homeId: "T_SHB", awayId: "T_AWA", homeScore: 4, awayScore: 4, status: "FULL TIME", goals: [{ player: "Prithive", count: 2, teamId: "T_AWA", teamName: "Team Awadh" }, { player: "Awadh", count: 2, teamId: "T_AWA", teamName: "Team Awadh" }, { player: "Kaveesh", count: 4, teamId: "T_SHB", teamName: "Team Shourya B" }] },
       { id: "M12", date: "8th October", pool: "Pool B", homeId: "T_SAK", awayId: "T_SAY", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
 
       // 9th October
@@ -361,7 +360,7 @@
       { id: "M19", date: "12th October", pool: "Pool A", homeId: "T_AKH", awayId: "T_SHG", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
       { id: "M20", date: "12th October", pool: "Pool B", homeId: "T_PAT", awayId: "T_PRA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
 
-      // 13th October: Knockouts
+      // 13th October: Semi Finals
       { id: "SF1", date: "13th October", pool: "Knockout", round: "Semi Final 1", homeId: "Winner Pool A", awayId: "Runner Up Pool B", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
       { id: "SF2", date: "13th October", pool: "Knockout", round: "Semi Final 2", homeId: "Winner Pool B", awayId: "Runner Up Pool A", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
 
@@ -369,8 +368,8 @@
       { id: "FIN", date: "14th October", pool: "Knockout", round: "Grand Final", homeId: "Winner Semi-Final 1", awayId: "Winner Semi-Final 2", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] }
     ];
 
-    // Auto-migrate storage key so users receive the updated fixtures immediately
-    const STORAGE_KEY = 'JPL_CORRECTED_FIXTURES_V7';
+    // Cache buster key to ensure all visitor screens immediately load Day 3
+    const STORAGE_KEY = 'JPL_DAY3_LIVE_V8';
     let tournamentFixtures = JSON.parse(localStorage.getItem(STORAGE_KEY)) || BASE_FIXTURES;
     let currentActiveFilter = 'all';
 
