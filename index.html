@@ -82,39 +82,20 @@
 
     <!-- VIEW: HOME -->
     <section id="view-home">
-      <!-- HERO: NEXT UPCOMING FIXTURE -->
-      <div class="hero-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-          <span class="badge-pill font-mono">NEXT UPCOMING FIXTURE</span>
-          <span class="font-mono" style="font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em;">8TH OCTOBER • POOL A</span>
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; text-align: center;">
-          <div>
-            <div class="team-box font-display">RAM</div>
-            <h3 class="font-display" style="font-size: 22px; color: #fff;">Team Ram</h3>
-            <p class="font-mono" style="font-size: 11px; color: #64748B;">Cap: Ram</p>
-          </div>
-          <div>
-            <div class="font-display" style="font-size: 48px; font-weight: 900; color: #334155; line-height: 1;">VS</div>
-            <span class="font-mono" style="font-size: 12px; color: #00F5A0;">8th October</span>
-          </div>
-          <div>
-            <div class="team-box font-display" style="color: #FFB800;">SHB</div>
-            <h3 class="font-display" style="font-size: 22px; color: #fff;">Team Shourya B</h3>
-            <p class="font-mono" style="font-size: 11px; color: #64748B;">Cap: Shourya Baranwal</p>
-          </div>
-        </div>
+      <!-- HERO: NEXT / LIVE FIXTURE WITH GOALS DISPLAY -->
+      <div class="hero-card" id="hero-fixture-card">
+        <!-- Dynamically rendered -->
       </div>
 
       <!-- 4 TOP STAT CARDS -->
       <div class="grid-4">
         <div class="card">
           <p class="font-mono" style="font-size: 11px; color: #64748B; text-transform: uppercase; letter-spacing: 0.05em;">Matches Completed</p>
-          <p id="stat-matches" class="font-display" style="font-size: 36px; color: #fff; margin-top: 4px;">10 / 20</p>
+          <p id="stat-matches" class="font-display" style="font-size: 36px; color: #fff; margin-top: 4px;">--</p>
         </div>
         <div class="card">
           <p class="font-mono" style="font-size: 11px; color: #64748B; text-transform: uppercase; letter-spacing: 0.05em;">Total Goals</p>
-          <p id="stat-goals" class="font-display" style="font-size: 36px; color: #00F5A0; margin-top: 4px;">159</p>
+          <p id="stat-goals" class="font-display" style="font-size: 36px; color: #00F5A0; margin-top: 4px;">--</p>
         </div>
         <div class="card">
           <p class="font-mono" style="font-size: 11px; color: #64748B; text-transform: uppercase; letter-spacing: 0.05em;">Registered Players</p>
@@ -122,7 +103,7 @@
         </div>
         <div class="card">
           <p class="font-mono" style="font-size: 11px; color: #64748B; text-transform: uppercase; letter-spacing: 0.05em;">👑 Top Goal Scorer</p>
-          <p id="stat-leader" class="font-display" style="font-size: 28px; color: #FFB800; margin-top: 4px;">Ronit (21G)</p>
+          <p id="stat-leader" class="font-display" style="font-size: 28px; color: #FFB800; margin-top: 4px;">--</p>
         </div>
       </div>
 
@@ -206,12 +187,12 @@
           </div>
           <div>
             <span class="font-mono" style="font-size: 10px; color: #FFB800; background: rgba(255, 184, 0, 0.1); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(255, 184, 0, 0.2);">CURRENT TOURNAMENT LEADER</span>
-            <h3 id="spotlight-name" class="font-display" style="font-size: 36px; color: #fff; margin-top: 4px; line-height: 1;">RONIT</h3>
-            <p class="font-mono" style="font-size: 11px; color: #64748B;">Squad: Team Paarth</p>
+            <h3 id="spotlight-name" class="font-display" style="font-size: 36px; color: #fff; margin-top: 4px; line-height: 1;">--</h3>
+            <p id="spotlight-squad" class="font-mono" style="font-size: 11px; color: #64748B;">Squad: --</p>
           </div>
         </div>
         <div style="text-align: right;">
-          <div id="spotlight-goals" class="font-display" style="font-size: 54px; font-weight: 900; color: #FFB800; line-height: 1;">21</div>
+          <div id="spotlight-goals" class="font-display" style="font-size: 54px; font-weight: 900; color: #FFB800; line-height: 1;">--</div>
           <p class="font-mono" style="font-size: 10px; color: #64748B;">TOTAL GOALS</p>
         </div>
       </div>
@@ -322,54 +303,35 @@
       { id: 'T_PAT', name: 'Team Pranit', pool: 'Pool B', captain: 'Pranit / Pathak', code: 'PAT', dotColor: '#00F5A0', players: ['Pranit / Pathak', 'Ishaan Gupta', 'Ishaan Chitransh', 'Divya Raj'] }
     ];
 
-    // MATCH DATA WITH DAY 1, DAY 2, DAY 3, AND PRE-SCHEDULED MATCHES BAKED IN
+    // ALL RESULTS UP TO 9TH OCTOBER BAKED IN DIRECTLY
     const BASE_FIXTURES = [
-      // 5th October
       { id: "M01", date: "5th October", pool: "Pool A", homeId: "T_AKH", awayId: "T_SHB", homeScore: 5, awayScore: 5, status: "FULL TIME", goals: [{ player: "Anirudh Yadav", count: 5, teamId: "T_AKH", teamName: "Team Akhand" }, { player: "Kaveesh", count: 5, teamId: "T_SHB", teamName: "Team Shourya B" }] },
       { id: "M02", date: "5th October", pool: "Pool A", homeId: "T_SHG", awayId: "T_AWA", homeScore: 4, awayScore: 12, status: "FULL TIME", goals: [{ player: "Chirag", count: 2, teamId: "T_SHG", teamName: "Team Shaurya G" }, { player: "Om", count: 1, teamId: "T_SHG", teamName: "Team Shaurya G" }, { player: "Shaurya Goel", count: 1, teamId: "T_SHG", teamName: "Team Shaurya G" }, { player: "Awadh", count: 10, teamId: "T_AWA", teamName: "Team Awadh" }, { player: "Vansh", count: 2, teamId: "T_AWA", teamName: "Team Awadh" }] },
       { id: "M03", date: "5th October", pool: "Pool B", homeId: "T_PAT", awayId: "T_SAK", homeScore: 9, awayScore: 7, status: "FULL TIME", goals: [{ player: "Ishaan Gupta", count: 6, teamId: "T_PAT", teamName: "Team Pranit" }, { player: "Pranit / Pathak", count: 3, teamId: "T_PAT", teamName: "Team Pranit" }, { player: "Kamal", count: 4, teamId: "T_SAK", teamName: "Team Saksham" }, { player: "Saksham", count: 2, teamId: "T_SAK", teamName: "Team Saksham" }, { player: "Prraham", count: 1, teamId: "T_SAK", teamName: "Team Saksham" }] },
       { id: "M04", date: "5th October", pool: "Pool B", homeId: "T_PRA", awayId: "T_SAY", homeScore: 13, awayScore: 3, status: "FULL TIME", goals: [{ player: "Advik", count: 11, teamId: "T_PRA", teamName: "Team Pranav" }, { player: "Ariket", count: 2, teamId: "T_PRA", teamName: "Team Pranav" }, { player: "Vivan", count: 2, teamId: "T_SAY", teamName: "Team Sayush" }, { player: "Sayush", count: 1, teamId: "T_SAY", teamName: "Team Sayush" }] },
-
-      // 6th October
       { id: "M05", date: "6th October", pool: "Pool A", homeId: "T_SHG", awayId: "T_SHB", homeScore: 2, awayScore: 7, status: "FULL TIME", goals: [{ player: "Kaveesh", count: 6, teamId: "T_SHB", teamName: "Team Shourya B" }, { player: "Shourya Baranwal", count: 1, teamId: "T_SHB", teamName: "Team Shourya B" }, { player: "Shaurya Goel", count: 2, teamId: "T_SHG", teamName: "Team Shaurya G" }] },
       { id: "M06", date: "6th October", pool: "Pool A", homeId: "T_AWA", awayId: "T_RAM", homeScore: 9, awayScore: 11, status: "FULL TIME", goals: [{ player: "Awadh", count: 6, teamId: "T_AWA", teamName: "Team Awadh" }, { player: "Prithive", count: 1, teamId: "T_AWA", teamName: "Team Awadh" }, { player: "Mann", count: 11, teamId: "T_RAM", teamName: "Team Ram" }, { player: "Rudra", count: 2, teamId: "T_AWA", teamName: "Team Awadh" }] },
       { id: "M07", date: "6th October", pool: "Pool B", homeId: "T_SAK", awayId: "T_PRA", homeScore: 12, awayScore: 6, status: "FULL TIME", goals: [{ player: "Krish", count: 8, teamId: "T_SAK", teamName: "Team Saksham" }, { player: "Kamal", count: 3, teamId: "T_SAK", teamName: "Team Saksham" }, { player: "Prraham", count: 1, teamId: "T_SAK", teamName: "Team Saksham" }, { player: "Ariket", count: 2, teamId: "T_PRA", teamName: "Team Pranav" }, { player: "Advik", count: 4, teamId: "T_PRA", teamName: "Team Pranav" }] },
-
-      // 7th October (Day 3 Results)
       { id: "M08", date: "7th October", pool: "Pool B", homeId: "T_PAA", awayId: "T_SAY", homeScore: 19, awayScore: 8, status: "FULL TIME", goals: [{ player: "Ronit", count: 13, teamId: "T_PAA", teamName: "Team Paarth" }, { player: "Anirudh P Singh", count: 6, teamId: "T_PAA", teamName: "Team Paarth" }, { player: "Vivan", count: 6, teamId: "T_SAY", teamName: "Team Sayush" }, { player: "Dev", count: 1, teamId: "T_SAY", teamName: "Team Sayush" }, { player: "Risik", count: 1, teamId: "T_SAY", teamName: "Team Sayush" }] },
       { id: "M09", date: "7th October", pool: "Pool B", homeId: "T_SAK", awayId: "T_PAA", homeScore: 8, awayScore: 11, status: "FULL TIME", goals: [{ player: "Ronit", count: 8, teamId: "T_PAA", teamName: "Team Paarth" }, { player: "Anirudh P Singh", count: 3, teamId: "T_PAA", teamName: "Team Paarth" }, { player: "Kamal", count: 4, teamId: "T_SAK", teamName: "Team Saksham" }, { player: "Krish", count: 3, teamId: "T_SAK", teamName: "Team Saksham" }, { player: "Prraham", count: 1, teamId: "T_SAK", teamName: "Team Saksham" }] },
-
-      // 8th October
       { id: "M10", date: "8th October", pool: "Pool A", homeId: "T_RAM", awayId: "T_SHB", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
       { id: "M11", date: "8th October", pool: "Pool A", homeId: "T_SHB", awayId: "T_AWA", homeScore: 4, awayScore: 4, status: "FULL TIME", goals: [{ player: "Prithive", count: 2, teamId: "T_AWA", teamName: "Team Awadh" }, { player: "Awadh", count: 2, teamId: "T_AWA", teamName: "Team Awadh" }, { player: "Kaveesh", count: 4, teamId: "T_SHB", teamName: "Team Shourya B" }] },
-      { id: "M12", date: "8th October", pool: "Pool B", homeId: "T_SAK", awayId: "T_SAY", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
-
-      // 9th October
-      { id: "M13", date: "9th October", pool: "Pool A", homeId: "T_SHG", awayId: "T_RAM", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
-      { id: "M14", date: "9th October", pool: "Pool B", homeId: "T_PRA", awayId: "T_PAA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
-
-      // 10th October: Tournament Break
-
-      // 11th October
+      { id: "M12", date: "8th October", pool: "Pool B", homeId: "T_SAK", awayId: "T_SAY", homeScore: 13, awayScore: 0, status: "FULL TIME", goals: [{ player: "Kamal", count: 9, teamId: "T_SAK", teamName: "Team Saksham" }, { player: "Krish", count: 4, teamId: "T_SAK", teamName: "Team Saksham" }] },
+      { id: "M13", date: "9th October", pool: "Pool A", homeId: "T_SHG", awayId: "T_RAM", homeScore: 2, awayScore: 9, status: "FULL TIME", goals: [{ player: "Mann", count: 9, teamId: "T_RAM", teamName: "Team Ram" }, { player: "Aishwarya", count: 1, teamId: "T_SHG", teamName: "Team Shaurya G" }, { player: "Om", count: 1, teamId: "T_SHG", teamName: "Team Shaurya G" }] },
+      { id: "M14", date: "9th October", pool: "Pool B", homeId: "T_PRA", awayId: "T_PAA", homeScore: 9, awayScore: 13, status: "FULL TIME", goals: [{ player: "Anirudh P Singh", count: 4, teamId: "T_PAA", teamName: "Team Paarth" }, { player: "Ariket", count: 2, teamId: "T_PRA", teamName: "Team Pranav" }, { player: "Advik", count: 6, teamId: "T_PRA", teamName: "Team Pranav" }, { player: "Ronit", count: 9, teamId: "T_PAA", teamName: "Team Paarth" }, { player: "Yashovardhan", count: 1, teamId: "T_PRA", teamName: "Team Pranav" }] },
       { id: "M15", date: "11th October", pool: "Pool A", homeId: "T_AKH", awayId: "T_AWA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
       { id: "M16", date: "11th October", pool: "Pool A", homeId: "T_AKH", awayId: "T_RAM", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
       { id: "M17", date: "11th October", pool: "Pool B", homeId: "T_PAT", awayId: "T_SAY", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
       { id: "M18", date: "11th October", pool: "Pool B", homeId: "T_PAT", awayId: "T_PAA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
-
-      // 12th October
       { id: "M19", date: "12th October", pool: "Pool A", homeId: "T_AKH", awayId: "T_SHG", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
       { id: "M20", date: "12th October", pool: "Pool B", homeId: "T_PAT", awayId: "T_PRA", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
-
-      // 13th October: Semi Finals
       { id: "SF1", date: "13th October", pool: "Knockout", round: "Semi Final 1", homeId: "Winner Pool A", awayId: "Runner Up Pool B", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
       { id: "SF2", date: "13th October", pool: "Knockout", round: "Semi Final 2", homeId: "Winner Pool B", awayId: "Runner Up Pool A", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] },
-
-      // 14th October: Grand Final
       { id: "FIN", date: "14th October", pool: "Knockout", round: "Grand Final", homeId: "Winner Semi-Final 1", awayId: "Winner Semi-Final 2", homeScore: 0, awayScore: 0, status: "SCHEDULED", goals: [] }
     ];
 
-    // Cache buster key to ensure all visitor screens immediately load Day 3
-    const STORAGE_KEY = 'JPL_DAY3_LIVE_V8';
+    // Updated storage key to immediately wipe old cache across all spectator devices
+    const STORAGE_KEY = 'JPL_DAY4_ALL_RESULTS_V9';
     let tournamentFixtures = JSON.parse(localStorage.getItem(STORAGE_KEY)) || BASE_FIXTURES;
     let currentActiveFilter = 'all';
 
@@ -411,6 +373,7 @@
     }
 
     function renderAll() {
+      // 1. STATS
       const completed = tournamentFixtures.filter(m => m.status === 'FULL TIME');
       const regularMatches = tournamentFixtures.filter(m => m.pool !== 'Knockout');
       document.getElementById('stat-matches').textContent = `${completed.length} / ${regularMatches.length}`;
@@ -430,8 +393,20 @@
         document.getElementById('stat-leader').textContent = `${sortedScorers[0][0]} (${sortedScorers[0][1]}G)`;
         document.getElementById('spotlight-name').textContent = sortedScorers[0][0].toUpperCase();
         document.getElementById('spotlight-goals').textContent = sortedScorers[0][1];
+
+        // Find leader squad
+        let leaderSquad = 'Team Paarth';
+        for (let m of tournamentFixtures) {
+          let g = (m.goals || []).find(x => x.player === sortedScorers[0][0]);
+          if (g && g.teamName) { leaderSquad = g.teamName; break; }
+        }
+        document.getElementById('spotlight-squad').textContent = `Squad: ${leaderSquad}`;
       }
 
+      // 2. HERO CARD (NEXT UPCOMING OR CURRENT LIVE FIXTURE WITH GOALS SHOWN)
+      renderHeroCard();
+
+      // 3. STANDINGS TABLES
       ['Pool A', 'Pool B'].forEach(pool => {
         const isA = pool === 'Pool A';
         const st = computeStandings(pool);
@@ -472,24 +447,34 @@
         }
       });
 
+      // 4. FIXTURES
       renderFixtures();
 
+      // 5. GOLDEN BOOT GRID
       const scGrid = document.getElementById('scorers-grid');
       if (scGrid) {
-        scGrid.innerHTML = sortedScorers.map(([name, goals], idx) => `
-          <div class="card" style="padding: 14px; display: flex; align-items: center; justify-content: space-between;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <span class="font-mono" style="font-size: 12px; font-weight: 700; color: ${idx === 0 ? '#FFB800' : '#64748B'};">0${idx+1}</span>
-              <div>
-                <h4 style="font-weight: 700; color: #fff; font-size: 14px;">${name}</h4>
-                <p class="font-mono" style="font-size: 10px; color: #64748B;">Squad Player</p>
+        scGrid.innerHTML = sortedScorers.map(([name, goals], idx) => {
+          let teamName = '';
+          for (let m of tournamentFixtures) {
+            let g = (m.goals || []).find(x => x.player === name);
+            if (g && g.teamName) { teamName = g.teamName; break; }
+          }
+          return `
+            <div class="card" style="padding: 14px; display: flex; align-items: center; justify-content: space-between;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span class="font-mono" style="font-size: 12px; font-weight: 700; color: ${idx === 0 ? '#FFB800' : '#64748B'};">0${idx+1}</span>
+                <div>
+                  <h4 style="font-weight: 700; color: #fff; font-size: 14px;">${name}</h4>
+                  <p class="font-mono" style="font-size: 10px; color: #64748B;">${teamName || 'Squad Player'}</p>
+                </div>
               </div>
+              <span class="font-mono" style="color: #00F5A0; font-weight: 700; font-size: 16px;">${goals} G</span>
             </div>
-            <span class="font-mono" style="color: #00F5A0; font-weight: 700; font-size: 16px;">${goals} G</span>
-          </div>
-        `).join('');
+          `;
+        }).join('');
       }
 
+      // 6. SQUADS
       const squadsEl = document.getElementById('squads-container');
       if (squadsEl) {
         squadsEl.innerHTML = TEAMS_DATA.map(t => `
@@ -513,6 +498,7 @@
         `).join('');
       }
 
+      // 7. ADMIN LIST
       const adminList = document.getElementById('admin-fixtures-list');
       if (adminList) {
         adminList.innerHTML = tournamentFixtures.map(m => `
@@ -529,6 +515,87 @@
           </div>
         `).join('');
       }
+    }
+
+    // DYNAMIC HERO CARD WITH SCORES & GOALS SUMMARY
+    function renderHeroCard() {
+      const hero = document.getElementById('hero-fixture-card');
+      if (!hero) return;
+
+      // Find first LIVE match, or next SCHEDULED match, or fallback to latest completed match
+      let match = tournamentFixtures.find(m => m.status === 'LIVE');
+      let badgeText = '● CURRENT LIVE MATCH';
+      let isLive = true;
+
+      if (!match) {
+        match = tournamentFixtures.find(m => m.status === 'SCHEDULED');
+        badgeText = 'NEXT UPCOMING FIXTURE';
+        isLive = false;
+      }
+      if (!match) {
+        match = tournamentFixtures[tournamentFixtures.length - 1];
+        badgeText = 'LATEST COMPLETED FIXTURE';
+        isLive = false;
+      }
+
+      const t1 = getTeam(match.homeId);
+      const t2 = getTeam(match.awayId);
+      const isFT = match.status === 'FULL TIME';
+
+      // Goals logged
+      const t1Goals = (match.goals || []).filter(g => g.teamId === match.homeId);
+      const t2Goals = (match.goals || []).filter(g => g.teamId === match.awayId);
+
+      hero.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <span class="badge-pill font-mono" style="${isLive ? 'background: rgba(255,46,91,0.15); color: #FF2E5B; border-color: rgba(255,46,91,0.3);' : ''}">${badgeText}</span>
+          <span class="font-mono" style="font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.1em;">${match.date} • ${match.pool || match.round}</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; text-align: center; gap: 12px;">
+          <div>
+            <div class="team-box font-display" style="border-color: ${t1.dotColor};">${t1.code}</div>
+            <h3 class="font-display" style="font-size: 22px; color: #fff;">${t1.name}</h3>
+            <p class="font-mono" style="font-size: 11px; color: #64748B;">Cap: ${t1.captain}</p>
+          </div>
+
+          <div>
+            ${isLive || isFT ? `
+              <div class="font-mono" style="font-size: 52px; font-weight: 900; color: ${isLive ? '#FFB800' : '#00F5A0'}; line-height: 1;">
+                ${match.homeScore} -${match.awayScore}
+              </div>
+              <span class="badge-pill font-mono" style="font-size: 9px; margin-top: 6px; display: inline-block;">${match.status}</span>
+            ` : `
+              <div class="font-display" style="font-size: 48px; font-weight: 900; color: #334155; line-height: 1;">VS</div>
+              <span class="font-mono" style="font-size: 12px; color: #00F5A0;">${match.date}</span>
+            `}
+          </div>
+
+          <div>
+            <div class="team-box font-display" style="border-color: ${t2.dotColor}; color: ${t2.dotColor};">${t2.code}</div>
+            <h3 class="font-display" style="font-size: 22px; color: #fff;">${t2.name}</h3>
+            <p class="font-mono" style="font-size: 11px; color: #64748B;">Cap: ${t2.captain}</p>
+          </div>
+        </div>
+
+        <!-- HERO GOAL SCORERS SECTION -->
+        ${(match.goals && match.goals.length > 0) ? `
+          <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #1E2638; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;" class="font-mono">
+            <div style="text-align: left;">
+              <span style="font-size: 10px; color: #64748B; text-transform: uppercase;">${t1.name} Goals:</span>
+              <div style="margin-top: 4px; display: flex; flex-direction: column; gap: 3px;">
+                ${t1Goals.length > 0 ? t1Goals.map(g => `<span style="font-size: 11px; color: #00F5A0;">⚽ ${g.player} (${g.count})</span>`).join('') : '<span style="font-size: 11px; color: #475569;">None</span>'}
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-size: 10px; color: #64748B; text-transform: uppercase;">${t2.name} Goals:</span>
+              <div style="margin-top: 4px; display: flex; flex-direction: column; gap: 3px;">
+                ${t2Goals.length > 0 ? t2Goals.map(g => `<span style="font-size: 11px; color: #00D9F5;">${g.player} (${g.count}) ⚽</span>`).join('') : '<span style="font-size: 11px; color: #475569;">None</span>'}
+              </div>
+            </div>
+          </div>
+        ` : ''}
+      `;
     }
 
     function renderFixtures() {
@@ -550,7 +617,7 @@
           <div class="match-row">
             <div class="font-mono" style="font-size: 11px; color: #94A3B8; width: 160px;">
               <span>${m.date}</span> • <span style="color: #64748B;">${m.pool || m.round}</span>
-              <span style="display: block; color: #00F5A0; font-weight: 700; margin-top: 2px;">${m.status}</span>
+              <span style="display: block; color: ${isFT ? '#00F5A0' : (isLive ? '#FF2E5B' : '#64748B')}; font-weight: 700; margin-top: 2px;">${m.status}</span>
             </div>
             <div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-grow: 1;">
               <span class="font-display" style="font-size: 22px; color: #fff; width: 150px; text-align: right;">${getTeam(m.homeId).name}</span>
